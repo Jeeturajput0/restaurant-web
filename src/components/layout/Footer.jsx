@@ -12,7 +12,7 @@ import {
 const Footer = () => {
   const navigation=useNavigate()
   const restaurantLinks = [
-    { name: "Partner with Us", path: "/partner" },
+    { name: "Partner with - Us", path: "/partner" },
     { name: "Add Your Restaurant", path: "/add-restaurant" },
     { name: "Restaurant App", path: "/restaurant-app" },
     { name: "Business Support", path: "/support"  },
