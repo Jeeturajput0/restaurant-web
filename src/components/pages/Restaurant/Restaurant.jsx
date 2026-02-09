@@ -1,242 +1,160 @@
-import React from 'react'
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ChefHat, Star, Award, Utensils } from 'lucide-react';
+import Journey from '../../../assets/jonery.jpg';
 import AboutPage from './About';
-import Journey from '../../../assets/jonery.jpg'
+
+// --- Reusable 3D Parallax Card Component ---
+const ParallaxCard = ({ children }) => {
+  const x = useSpring(0, { stiffness: 300, damping: 30 });
+  const y = useSpring(0, { stiffness: 300, damping: 30 });
+
+  const handleMouse = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = (mouseX / width - 0.5) * 20; // Tilt sensitivity
+    const yPct = (mouseY / height - 0.5) * -20;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const resetMouse = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouse}
+      onMouseLeave={resetMouse}
+      style={{ rotateY: x, rotateX: y, transformStyle: "preserve-3d" }}
+      className="relative transition-all duration-200 ease-out"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const Restaurant = () => {
-    const chefs = [
-    {
-      name: "Chef Arjun Mehta",
-      exp: "12 Years Experience",
-      speciality: "Modern Indian Fusion",
-      img: "https://images.unsplash.com/photo-1551218808-94e220e084d2",
-    },
-    {
-      name: "Chef Priya Kapoor",
-      exp: "9 Years Experience",
-      speciality: "Italian Cuisine Specialist",
-      img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d",
-    },
-    {
-      name: "Chef Rohan Verma",
-      exp: "7 Years Experience",
-      speciality: "Dessert Artist & Baker",
-      img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba",
-    },
-  ];
+  const journeyRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: journeyRef,
+    offset: ["start end", "end start"]
+  });
 
-  const gallery = [
-    {
-      title: "Our Master Chefs",
-      img: "https://images.unsplash.com/photo-1556911220-bff31c812dba",
-    },
-    {
-      title: "Modern Kitchen",
-      img: "https://images.unsplash.com/photo-1589571894960-20bbe2828d0a",
-    },
-    {
-      title: "Premium Tools",
-      img: "https://images.unsplash.com/photo-1528712306091-ed0763094c98",
-    },
-    {
-      title: "Fine Dining Area",
-      img: "https://images.unsplash.com/photo-1552566626-52f8b828add9",
-    },
-    {
-      title: "Signature Dishes",
-      img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
-    },
-    {
-      title: "Luxury Ambience",
-      img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-    },
+  // Parallax: Background and foreground move at different speeds
+  const yImage = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const yText = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
+
+  const chefs = [
+    { name: "Chef Arjun Mehta", exp: "12 Years", speciality: "Modern Indian Fusion", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2", icon: <ChefHat /> },
+    { name: "Chef Priya Kapoor", exp: "9 Years", speciality: "Italian Cuisine", img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d", icon: <Utensils /> },
+    { name: "Chef Rohan Verma", exp: "7 Years", speciality: "Dessert Artist", img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba", icon: <Award /> },
   ];
 
   return (
-    <>
-      
+    <div className="bg-[#0a0a0a] text-white selection:bg-yellow-400 selection:text-black">
+      {/* Hero Content */}
+      <section className="relative py-24 px-6 md:px-24">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          className="text-center mb-32"
+        >
+          <span className="text-yellow-500 font-bold uppercase tracking-[0.3em] text-sm mb-4 block">Est. 2010</span>
+          <h1 className="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent">
+            CRAFTING <span className="text-yellow-400">MEMORIES</span>
+          </h1>
+          <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+        </motion.div>
 
-  return (
-    <section className="bg-black text-white py-20 px-6 md:px-14 lg:px-24">
-
-      <div className="text-center mb-20">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-yellow-400 drop-shadow-lg tracking-wide">
-          About Our Luxury Restaurant
-        </h1>
-        <p className="text-gray-300 max-w-3xl mx-auto mt-6 text-lg leading-relaxed">
-          Where culinary artistry meets refined hospitality.  
-          We create unforgettable gourmet experiences with passion and precision.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-16 items-center mb-28">
-        <div>
-          <h2 className="text-4xl font-bold mb-4 text-yellow-400">
-            Our Journey
-          </h2>
-          <p className="text-gray-300 leading-relaxed mb-5">
-            Founded with the vision of bringing world-class dining to your city,
-            our restaurant blends tradition with innovation. From our humble
-            beginnings as a boutique eatery to becoming a celebrated culinary
-            brand, we have stayed committed to taste, quality, and hospitality.
-          </p>
-          <p className="text-gray-400 leading-relaxed">
-            Every plate tells a story — crafted with premium ingredients,
-            slow-cooking techniques, and an uncompromising philosophy of
-            excellence. Today, we proudly serve thousands, offering a memorable,
-            luxurious dining experience.
-          </p>
-
-          <button className="mt-8 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-8 py-4 rounded-xl font-semibold shadow-xl hover:scale-105 transition">
-            Explore Full Menu
-          </button>
-        </div>
-
-        <div className="relative">
-          <img
-            src={Journey}
-            alt="Journey"
-            className="rounded-3xl shadow-2xl"
-          />
-          <div className="absolute inset-0 bg-black/20 rounded-3xl"></div>
-        </div>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-12 bg-white/5 p-10 rounded-3xl border border-gray-700 shadow-xl mb-24">
-        <div>
-          <h3 className="text-3xl font-bold text-yellow-400 mb-3">Our Mission</h3>
-          <p className="text-gray-300">
-            To elevate dining into an experience filled with elegance, warmth,
-            and exceptional flavors. We aim to provide innovative dishes while
-            honoring culinary heritage.
-          </p>
-        </div>
-        <div>
-          <h3 className="text-3xl font-bold text-yellow-400 mb-3">Our Vision</h3>
-          <p className="text-gray-300">
-            To be the most loved luxury restaurant brand — known for creativity,
-            authenticity, and a customer-first approach that turns meals into
-            cherished memories.
-          </p>
-        </div>
-      </div>
-
-      <div className="mb-28">
-        <h2 className="text-4xl font-bold mb-12 text-center text-yellow-400">
-          Our Signature Dishes
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-10">
-          {[
-            {
-              name: "Truffle Mushroom Risotto",
-              img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-            },
-            {
-              name: "Classic Wood-Fired Pizza",
-              img: "https://images.unsplash.com/photo-1543353071-10c8ba85a904",
-            },
-            {
-              name: "Belgian Chocolate Mousse",
-              img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
-            },
-          ].map((dish, i) => (
-            <div
-              key={i}
-              className="rounded-2xl overflow-hidden shadow-xl group"
+        {/* Journey Section with Scroll Parallax */}
+        <div ref={journeyRef} className="grid md:grid-cols-2 gap-20 items-center overflow-visible">
+          <motion.div style={{ y: yText, opacity }} className="z-10">
+            <h2 className="text-5xl font-black mb-8 leading-tight">
+              A Legacy of <br /> <span className="text-yellow-400 underline decoration-yellow-600/30">Taste & Luxury</span>
+            </h2>
+            <p className="text-gray-400 text-xl leading-relaxed mb-10">
+              We don't just serve food; we curate experiences that linger on the palate 
+              and in the heart. From farm-to-table freshness to Michelin-standard plating.
+            </p>
+            <motion.button 
+              whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(250, 204, 21, 0.4)" }}
+              className="bg-yellow-400 text-black px-10 py-5 rounded-full font-black tracking-widest uppercase text-sm"
             >
-              <img
-                src={dish.img}
-                alt={dish.name}
-                className="h-72 w-full object-cover group-hover:scale-110 transition duration-500"
-              />
-              <div className="bg-black/80 p-4 text-center">
-                <h3 className="text-yellow-400 font-bold text-lg">{dish.name}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+              Our Philosophy
+            </motion.button>
+          </motion.div>
 
-      <div className="mb-28">
-        <h2 className="text-4xl font-bold mb-12 text-center text-yellow-400">
-          Gallery – Chefs • Kitchen • Tools • Ambience
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {gallery.map((g, i) => (
-            <div
-              key={i}
-              className="relative rounded-2xl overflow-hidden group shadow-xl"
+          <motion.div style={{ y: yImage }} className="relative group">
+            <div className="absolute -inset-4 bg-yellow-400/20 blur-2xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <img 
+              src={Journey} 
+              alt="Luxury" 
+              className="rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10" 
+            />
+            {/* Floating Badge */}
+            <motion.div 
+              animate={{ y: [0, -20, 0] }}
+              transition={{ repeat: Infinity, duration: 4 }}
+              className="absolute -top-10 -right-10 bg-white p-6 rounded-2xl shadow-2xl hidden md:block"
             >
-              <img
-                src={g.img}
-                alt={g.title}
-                className="w-full h-72 object-cover transition group-hover:scale-110 duration-500"
-              />
-              <div className="absolute bottom-0 w-full bg-black/70 p-4 text-center">
-                <h4 className="text-yellow-400 font-semibold">{g.title}</h4>
-              </div>
-            </div>
-          ))}
+              <Star className="text-yellow-500 fill-yellow-500" size={32} />
+              <p className="text-black font-black text-xs mt-2 uppercase">Top Rated</p>
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      <div className="mb-20">
-        <h2 className="text-4xl font-bold mb-12 text-center text-yellow-400">
-          Meet Our Expert Chefs
+      {/* Meet The Chefs with 3D Tilt Parallax */}
+      <section className="py-32 px-6 md:px-24 bg-[#0d0d0d]">
+        <h2 className="text-4xl font-black text-center mb-20 uppercase tracking-tighter">
+          Masterminds <span className="text-yellow-400">Behind the Kitchen</span>
         </h2>
-
-        <div className="grid md:grid-cols-3 gap-12">
-          {chefs.map((chef, i) => (
-            <div
-              key={i}
-              className="bg-white/5 border border-gray-700 rounded-2xl p-8 text-center hover:border-yellow-400 hover:bg-yellow-400/10 transition shadow-lg"
-            >
-              <img
-                src={chef.img}
-                alt={chef.name}
-                className="w-40 h-40 mx-auto rounded-full object-cover mb-5 shadow-xl"
-              />
-
-              <h3 className="text-xl font-bold text-yellow-400">
-                {chef.name}
-              </h3>
-              <p className="text-gray-300 mt-1">{chef.exp}</p>
-              <p className="text-gray-400 text-sm mt-1 italic">
-                {chef.speciality}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-        <section className="py-20 text-white">
-          <h2 className="text-4xl font-bold text-center text-yellow-400 mb-14">
-            Our Story Timeline
-          </h2>
-
-          <div className="border-l-4 border-yellow-400 ml-10 space-y-10">
-            {[
-              { year: "2010", text: "Opened our first boutique restaurant." },
-              { year: "2014", text: "Awarded Best New Culinary Experience." },
-              { year: "2018", text: "Expanded to multi-city presence." },
-              { year: "2023", text: "Recognized as a Top Luxury Dining Brand." },
-            ].map((event, i) => (
-              <div key={i} className="ml-6">
-                <h3 className="text-2xl text-yellow-400 font-bold">{event.year}</h3>
-                <p className="text-gray-300">{event.text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         
+        <div className="grid md:grid-cols-3 gap-10">
+          {chefs.map((chef, i) => (
+            <ParallaxCard key={i}>
+              <div className="bg-[#151515] p-8 rounded-[2.5rem] border border-white/5 text-center group hover:border-yellow-400/50 transition-colors">
+                <div className="relative w-48 h-48 mx-auto mb-8">
+                  <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                  <img 
+                    src={chef.img} 
+                    alt={chef.name} 
+                    className="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-yellow-400/20 shadow-2xl" 
+                  />
+                </div>
+                <div className="text-yellow-400 mb-2 flex justify-center">{chef.icon}</div>
+                <h3 className="text-2xl font-black mb-1">{chef.name}</h3>
+                <p className="text-yellow-500/80 font-bold text-sm mb-4">{chef.exp}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{chef.speciality}</p>
+              </div>
+            </ParallaxCard>
+          ))}
+        </div>
+      </section>
+      
+      {/* Decorative Parallax Text Belt */}
+      <div className="py-10 overflow-hidden bg-yellow-400 flex whitespace-nowrap">
+          <motion.div 
+            animate={{ x: [0, -1000] }}
+            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+            className="flex gap-20"
+          >
+            {[1, 2, 3, 4, 5].map((x) => (
+              <span key={x} className="text-black font-black text-4xl uppercase tracking-tighter italic">
+                Michelin Quality • Luxury Dining • Artistic Plating • World Class Service •
+              </span>
+            ))}
+          </motion.div>
+      </div>
+      <AboutPage/>
+    </div>
+  );
+};
 
-
-    </section>
-
-<AboutPage/>
-    </>
-  )
-}
-
-export default Restaurant
+export default Restaurant;

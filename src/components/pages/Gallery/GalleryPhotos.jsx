@@ -1,5 +1,7 @@
 import React from "react";
+import { motion } from "framer-motion";
 
+// Assuming your imports stay the same
 import img1 from "../../../assets/gallery-2-1.jpg";
 import img2 from "../../../assets/gallery-2-2.jpg";
 import img3 from "../../../assets/gallery-2-3.jpg";
@@ -12,7 +14,7 @@ import img9 from "../../../assets/gallery-2-9.jpg";
 import img10 from "../../../assets/gallery-2-10.jpg";
 import img11 from "../../../assets/gallery-2-11.jpg";
 import img12 from "../../../assets/gallery-2-12.jpg";
-import { useNavigate } from "react-router-dom";
+// ... (keep all your other image imports)
 
 const GalleryPhotos = () => {
   const card = [
@@ -30,32 +32,95 @@ const GalleryPhotos = () => {
     { img: img12, title: "CHOCOLATE MUFFIN" },
   ];
 
+  // Animation variants for the container
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // Images will reveal one by one
+      },
+    },
+  };
+
+  // Animation variants for each image card
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  };
+
   return (
-    <div className="bg-black py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div className="bg-black py-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        
+        {/* Section Heading */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl font-black italic text-yellow-400 tracking-tighter uppercase">
+            Captured Moments
+          </h2>
+          <div className="h-1 w-24 bg-yellow-400 mx-auto mt-4 rounded-full" />
+        </motion.div>
+
+        {/* The Grid */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+        >
           {card.map((item, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group relative overflow-hidden rounded-xl border-2 border-yellow-400"
+              variants={itemVariants}
+              whileHover={{ 
+                y: -10,
+                transition: { duration: 0.3 }
+              }}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
             >
-              <img
+              {/* Image with Parallax Zoom */}
+              <motion.img
                 src={item.img}
                 alt={item.title}
-                className="w-full h-96 object-cover transition-all duration-700 group-hover:scale-125"
+                className="w-full h-[450px] object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
               />
 
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                <h3 className="text-yellow-400 text-xl font-bold border-b-2 border-yellow-400">
-                  {item.title}
-                </h3>
+              {/* Overlay with Premium Blur */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8">
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-yellow-400 text-sm font-bold tracking-[0.3em] mb-2">
+                    EXPLORE
+                  </p>
+                  <h3 className="text-white text-3xl font-black italic leading-tight uppercase">
+                    {item.title}
+                  </h3>
+                  <div className="w-0 group-hover:w-full h-1 bg-yellow-400 transition-all duration-700 mt-2" />
+                </motion.div>
               </div>
-            </div>
+
+              {/* Decorative Corner Border */}
+              <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-yellow-400 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-yellow-400 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
-    
   );
 };
 

@@ -4,6 +4,7 @@ import FeaturesSection from "./FeaturesSection";
 import QuickOrder from "./QuickOrder";
 import HotDeals from "./HotDeals";
 import HighlightsStats from "./HighlightsStats";
+import BenefitsSection from "./BenefitsSection";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <div>
         <Banner className="pt-20" />
         <FeaturesSection />
+        <BenefitsSection/>
         <QuickOrder />
         <HotDeals />
         <HighlightsStats />
