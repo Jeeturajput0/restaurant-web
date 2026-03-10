@@ -59,11 +59,11 @@ const GalleryPhotos = () => {
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Heading */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center"
         >
           <h2 className="text-5xl font-black italic text-yellow-400 tracking-tighter uppercase">
             Captured Moments
@@ -72,12 +72,11 @@ const GalleryPhotos = () => {
         </motion.div>
 
         {/* The Grid */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+          animate="visible"
+          className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"
         >
           {card.map((item, index) => (
             <motion.div
@@ -100,7 +99,8 @@ const GalleryPhotos = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8">
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.15, duration: 0.45 }}
                   className="overflow-hidden"
                 >
                   <p className="text-yellow-400 text-sm font-bold tracking-[0.3em] mb-2">

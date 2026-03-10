@@ -40,12 +40,11 @@ const GalleryImages = () => {
 
   return (
     <div className="bg-black py-10">
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-6 lg:px-20"
+        animate="visible"
+        className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 sm:p-6 md:grid-cols-3 lg:px-20"
       >
         {images.map((img, i) => (
           <motion.div

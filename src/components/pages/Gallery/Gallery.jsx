@@ -19,7 +19,7 @@ const Gallery = () => {
   const scaleText = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   return (
-    <div className="bg-black">
+    <div className="bg-black pt-[90px]">
       {/* Banner Section with Parallax */}
       <div 
         ref={containerRef}
@@ -59,18 +59,17 @@ const Gallery = () => {
 
       {/* Main Content Sections */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="mt-[-40px] relative z-20" // Overlap effect
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative z-20 -mt-10"
       >
         <GalleryImages />
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <GalleryPhotos />

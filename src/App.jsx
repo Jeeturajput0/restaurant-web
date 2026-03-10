@@ -10,6 +10,7 @@ import Contact from './components/pages/Contact/Contact'
 import Offers from './components/pages/Offer/Offer'
 import Gallery from './components/pages/Gallery/Gallery'
 import Menu from './components/pages/MenuBar/Menu'
+import OrderPage from './components/pages/Order/OrderPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/offers" element={<Offers/>} />
         <Route path='/restaurants' element={<Restaurant/>}/>
         <Route path='/menubar' element={<Menu/>}/>
+        <Route path='/order' element={<OrderPage/>}/>
       </Route>
 
     </Routes>
