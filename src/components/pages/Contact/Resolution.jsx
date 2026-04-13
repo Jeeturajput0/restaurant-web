@@ -1,96 +1,72 @@
 import React from "react";
-import {
-  FaExclamationCircle,
-  FaCheckCircle,
-  FaHeadset,
-} from "react-icons/fa";
+import { CircleAlert, CircleCheckBig, Headset } from "lucide-react";
+import SectionHeading from "../../ui/SectionHeading";
+
+const issues = [
+  "Order not delivered or delayed",
+  "Wrong or damaged food item",
+  "Payment failure or double deduction",
+  "Refund not received",
+];
+
+const steps = [
+  "Raise a complaint through support or email.",
+  "Our team reviews the issue with the restaurant and delivery partner.",
+  "A clear resolution is shared within 24 to 48 hours.",
+];
 
 const Resolution = () => {
   return (
-    <div className="min-h-screen bg-black text-gray-300 px-6 py-14">
-      <div className="max-w-5xl mx-auto">
+    <section className="page-section">
+      <div className="theme-container space-y-10">
+        <SectionHeading
+          eyebrow="Contact"
+          title="Resolution center"
+          description="Support content has been restyled to feel as polished and consistent as the product pages."
+        />
 
-        <h1 className="text-4xl font-extrabold text-yellow-400 text-center">
-          Resolution Center
-        </h1>
-        <p className="text-center text-gray-400 mt-3">
-          We are here to resolve your issues quickly and fairly
-        </p>
+        <div className="grid gap-8 xl:grid-cols-[1fr_0.95fr]">
+          <article className="theme-card p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-slate-950">Common issues we handle</h2>
+            <ul className="mt-6 space-y-4">
+              {issues.map((issue) => (
+                <li key={issue} className="flex items-start gap-3 text-sm leading-7 text-slate-600">
+                  <CircleAlert className="mt-1 h-4 w-4 shrink-0 text-amber-500" />
+                  <span>{issue}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-semibold text-yellow-400 mb-6">
-            Common Issues We Handle
-          </h2>
-
-          <ul className="space-y-4">
-            <li className="flex items-center gap-3">
-              <FaExclamationCircle className="text-yellow-400" />
-              Order not delivered or delayed
-            </li>
-            <li className="flex items-center gap-3">
-              <FaExclamationCircle className="text-yellow-400" />
-              Wrong or damaged food item
-            </li>
-            <li className="flex items-center gap-3">
-              <FaExclamationCircle className="text-yellow-400" />
-              Payment failure or double deduction
-            </li>
-            <li className="flex items-center gap-3">
-              <FaExclamationCircle className="text-yellow-400" />
-              Refund not received
-            </li>
-          </ul>
-        </div>
-
-        <div className="mt-14">
-          <h2 className="text-2xl font-semibold text-yellow-400 mb-6">
-            Our Resolution Process
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="border border-yellow-400/30 rounded-xl p-5">
-              <FaCheckCircle className="text-yellow-400 text-2xl mb-3" />
-              <h3 className="font-semibold text-white">Step 1</h3>
-              <p className="text-sm text-gray-400 mt-2">
-                Raise a complaint through support or email.
-              </p>
+          <article className="theme-card p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-slate-950">Our resolution process</h2>
+            <div className="mt-6 grid gap-4">
+              {steps.map((step, index) => (
+                <div key={step} className="rounded-2xl bg-amber-50/60 px-4 py-4">
+                  <div className="flex items-start gap-3">
+                    <CircleCheckBig className="mt-1 h-4 w-4 shrink-0 text-amber-500" />
+                    <div>
+                      <p className="text-sm font-semibold text-slate-950">Step {index + 1}</p>
+                      <p className="mt-1 text-sm leading-7 text-slate-600">{step}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <div className="border border-yellow-400/30 rounded-xl p-5">
-              <FaCheckCircle className="text-yellow-400 text-2xl mb-3" />
-              <h3 className="font-semibold text-white">Step 2</h3>
-              <p className="text-sm text-gray-400 mt-2">
-                Our team reviews the issue with restaurant & delivery partner.
+            <div className="mt-6 rounded-2xl bg-white px-4 py-5 shadow-sm">
+              <div className="flex items-center gap-3">
+                <Headset className="h-5 w-5 text-amber-500" />
+                <p className="font-semibold text-slate-950">Need immediate help?</p>
+              </div>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Contact support@eatmore.com or call +91 98765 43210 anytime.
               </p>
             </div>
-
-            <div className="border border-yellow-400/30 rounded-xl p-5">
-              <FaCheckCircle className="text-yellow-400 text-2xl mb-3" />
-              <h3 className="font-semibold text-white">Step 3</h3>
-              <p className="text-sm text-gray-400 mt-2">
-                Resolution provided within 24–48 hours.
-              </p>
-            </div>
-          </div>
+          </article>
         </div>
-
-        <div className="mt-16 bg-[#111] border border-yellow-400/30 rounded-xl p-8 text-center">
-          <FaHeadset className="text-yellow-400 text-3xl mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold text-white">
-            Need Immediate Help?
-          </h2>
-          <p className="text-gray-400 mt-2">
-            Contact our support team anytime
-          </p>
-
-          <p className="mt-4 text-sm">
-            📧 support@eatmore.com <br />
-            📞 +91 98765 43210
-          </p>
-        </div>
-
       </div>
-    </div>
+    </section>
   );
 };
 

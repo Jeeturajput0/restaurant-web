@@ -1,52 +1,66 @@
 import React from "react";
-import banner from '../../../assets/bannerfood.jpeg'
-import { useNavigate } from "react-router-dom";
-import { FaBurger } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { Search } from "lucide-react";
+import { heroContent } from "../../../data/menuData";
+import Button from "../../ui/Button";
 
 const Banner = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className="relative w-full h-[90vh] overflow-hidden">
-      <img
-        src={banner}
-        alt="Food Banner"
-        className="w-full h-full object-cover"
-      />
+    <section className="page-section">
+      <div className="theme-container">
+        <div className="section-grid gap-10">
+          <div className="space-y-7">
+            <span className="theme-pill">{heroContent.badge}</span>
 
-      <div className="absolute inset-0 bg-black/50 flex items-center px-8">
-        <div className="space-y-7 max-w-xl">
-          
-          <h1 className="text-6xl font-extrabold italic text-white leading-tight">
-            Are You Hungry?
-            <br />
-            <span className="flex items-center gap-3 font-serif bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-              Don’t Wait
-              <FaBurger className="text-yellow-300 text-4xl" />
-            </span>
-          </h1>
+            <div className="space-y-5">
+              <h1 className="max-w-xl text-5xl font-semibold leading-tight text-slate-950 sm:text-6xl">
+                {heroContent.title} <span className="text-amber-500"></span>
+              </h1>
+              <p className="max-w-xl text-base leading-8 text-slate-600">{heroContent.description}</p>
+            </div>
 
-          <p className="text-xl text-gray-200 italic tracking-wide">
-            Craving something delicious?
-            <span className="text-yellow-300 font-semibold">
-              Order fresh food in minutes!
-            </span>
-          </p>
+            <div className="flex flex-wrap gap-4">
+              <Button as={Link} to="/menu">
+                Explore Food
+              </Button>
+              <Button as={Link} to="/menu" variant="secondary" className="gap-2">
+                <Search className="h-4 w-4" />
+                Search
+              </Button>
+            </div>
+          </div>
 
-          <button
-            onClick={() => navigate("/menubar")}
-            className="px-9 py-3 text-lg font-semibold italic text-white
-            rounded-full bg-gradient-to-r from-yellow-400 to-orange-500
-            hover:bg-orange-500 transition-colors duration-200"
-          >
-            🍽 Explore Our Menu
-          </button>
+          <div className="grid gap-5 lg:grid-cols-[1fr_150px] lg:items-center">
+            <div className="relative mx-auto w-full max-w-[30rem]">
+              <div className="absolute inset-4 rounded-full bg-amber-100 blur-3xl" />
+              <div className="relative overflow-hidden rounded-full border-[14px] border-white bg-white p-4 shadow-[0_35px_80px_rgba(245,158,11,0.18)]">
+                <img
+                  src={heroContent.image}
+                  alt="Signature dish"
+                  className="aspect-square w-full rounded-full object-cover"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              {heroContent.quickTags.map((tag) => (
+                <div
+                  key={tag.label}
+                  className="flex items-center gap-3 rounded-2xl border border-amber-100 bg-white/85 px-4 py-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <span
+                    className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white shadow-sm ${tag.tone}`}
+                  >
+                    <img src={tag.image} alt={tag.label} className="h-7 w-7 rounded-full object-cover" />
+                  </span>
+                  <span className="text-sm font-medium text-slate-700">{tag.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        
       </div>
-      
-    </div>
-    
+    </section>
   );
 };
 

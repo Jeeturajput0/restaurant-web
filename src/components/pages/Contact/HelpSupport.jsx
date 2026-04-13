@@ -1,86 +1,76 @@
 import React from "react";
-import {
-  FaShoppingCart,
-  FaMoneyCheckAlt,
-  FaUndoAlt,
-  FaUserCog,
-  FaPhoneAlt,
-  FaEnvelope,
-} from "react-icons/fa";
+import { CreditCard, Mail, Phone, RefreshCcw, ShoppingCart, UserRoundCog } from "lucide-react";
+import Field from "../../ui/Field";
+import Button from "../../ui/Button";
+
+const topics = [
+  { icon: ShoppingCart, label: "Order Problems" },
+  { icon: CreditCard, label: "Payment Issues" },
+  { icon: RefreshCcw, label: "Refund Status" },
+  { icon: UserRoundCog, label: "Account & Login" },
+];
 
 const HelpSupport = () => {
   return (
-    <div className="min-h-screen bg-black text-gray-300 px-6 py-12">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-       
-        <div className="bg-[#111] border border-yellow-400/30 rounded-xl p-6">
-          <h2 className="text-xl font-bold text-yellow-400 mb-6">
-            Help Topics
-          </h2>
+    <section className="page-section pb-20">
+      <div className="theme-container">
+        <div className="grid gap-8 xl:grid-cols-[0.8fr_1.2fr]">
+          <aside className="theme-card p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-slate-950">Help topics</h2>
+            <div className="mt-6 grid gap-3">
+              {topics.map((topic) => {
+                const Icon = topic.icon;
 
-          <ul className="space-y-4 text-sm">
-            <li className="flex items-center gap-3 cursor-pointer hover:text-yellow-400">
-              <FaShoppingCart /> Order Problems
-            </li>
-            <li className="flex items-center gap-3 cursor-pointer hover:text-yellow-400">
-              <FaMoneyCheckAlt /> Payment Issues
-            </li>
-            <li className="flex items-center gap-3 cursor-pointer hover:text-yellow-400">
-              <FaUndoAlt /> Refund Status
-            </li>
-            <li className="flex items-center gap-3 cursor-pointer hover:text-yellow-400">
-              <FaUserCog /> Account & Login
-            </li>
-          </ul>
-        </div>
+                return (
+                  <button
+                    key={topic.label}
+                    type="button"
+                    className="flex items-center gap-3 rounded-2xl border border-amber-100 bg-white px-4 py-4 text-left text-sm font-medium text-slate-700 shadow-sm transition hover:border-amber-300 hover:text-amber-600"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {topic.label}
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
 
-        <div className="md:col-span-2 bg-[#111] border border-yellow-400/30 rounded-xl p-8">
-          <h1 className="text-3xl font-extrabold text-yellow-400">
-            Help & Support Center
-          </h1>
-          <p className="text-gray-400 mt-2">
-            Get quick help related to your orders, payments, and account.
-          </p>
+          <div className="theme-card p-6 sm:p-8">
+            <h2 className="text-3xl font-semibold text-slate-950">Help & support center</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+              Get quick help related to your orders, payments and account from a cleaner support form.
+            </p>
 
-          <div className="mt-8 space-y-6">
-            <div className="border border-gray-700 rounded-lg p-5">
-              <h3 className="text-lg font-semibold text-white">
-                How we resolve issues
-              </h3>
-              <p className="text-sm text-gray-400 mt-2">
-                Our support team reviews your issue and connects with the
-                restaurant or delivery partner to resolve it within 24-48 hours.
+            <form className="mt-8 grid gap-5">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field label="Full Name" placeholder="Enter your name" />
+                <Field label="Email" type="email" placeholder="you@example.com" />
+              </div>
+              <Field label="Topic" as="select" defaultValue="Order Problems">
+                {topics.map((topic) => (
+                  <option key={topic.label} value={topic.label}>
+                    {topic.label}
+                  </option>
+                ))}
+              </Field>
+              <Field label="Message" as="textarea" rows="5" placeholder="Describe your issue" />
+              <Button type="button">Submit Request</Button>
+            </form>
+
+            <div className="mt-8 flex flex-col gap-3 rounded-2xl bg-amber-50/60 px-5 py-5 text-sm text-slate-600">
+              <p className="inline-flex items-center gap-3">
+                <Mail className="h-4 w-4 text-amber-500" />
+                support@eatmore.com
+              </p>
+              <p className="inline-flex items-center gap-3">
+                <Phone className="h-4 w-4 text-amber-500" />
+                +91 98765 43210
               </p>
             </div>
-
-            <div className="border border-gray-700 rounded-lg p-5">
-              <h3 className="text-lg font-semibold text-white">
-                Resolution Time
-              </h3>
-              <p className="text-sm text-gray-400 mt-2">
-                Most issues are resolved within 24 hours. Refund-related issues
-                may take up to 5 business days.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-10 border-t border-yellow-400/20 pt-6">
-            <h3 className="text-lg font-semibold text-yellow-400 mb-3">
-              Contact Support
-            </h3>
-
-            <p className="flex items-center gap-3 text-sm">
-              <FaEnvelope className="text-yellow-400" />
-              support@eatmore.com
-            </p>
-            <p className="flex items-center gap-3 text-sm mt-2">
-              <FaPhoneAlt className="text-yellow-400" />
-              +91 98765 43210
-            </p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

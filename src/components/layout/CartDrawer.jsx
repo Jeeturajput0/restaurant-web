@@ -1,6 +1,9 @@
 import React from "react";
-import { FaMinus, FaPlus, FaShoppingBag, FaTrash, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { formatCurrency, priceToNumber } from "../../lib/menu";
+import Button from "../ui/Button";
 
 const CartDrawer = () => {
   const {
@@ -10,7 +13,6 @@ const CartDrawer = () => {
     removeFromCart,
     updateQuantity,
     clearCart,
-    itemCount,
     subtotal,
   } = useCart();
 
@@ -18,131 +20,113 @@ const CartDrawer = () => {
     <>
       <div
         onClick={() => setIsCartOpen(false)}
-        className={`fixed inset-0 z-[115] bg-black/60 transition ${
+        className={`fixed inset-0 z-50 bg-slate-950/35 transition ${
           isCartOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
 
       <aside
-        className={`fixed right-0 top-0 z-[120] flex h-screen w-full max-w-md flex-col border-l border-white/10 bg-[#090909]/95 shadow-[0_30px_90px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-transform duration-300 ${
+        className={`fixed right-0 top-0 z-[60] flex h-screen w-full max-w-md flex-col border-l border-amber-100 bg-[#fffaf3] shadow-2xl transition-transform duration-300 ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-white/10 px-5 py-5 sm:px-6">
+        <div className="flex items-center justify-between border-b border-amber-100 px-5 py-5">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-yellow-400">
-              Your Cart
-            </p>
-            <h2 className="mt-2 text-2xl font-black text-white">Quick Checkout Bag</h2>
+            <p className="theme-pill">Your Cart</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-950">Quick Checkout Bag</h2>
           </div>
           <button
             type="button"
             onClick={() => setIsCartOpen(false)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-yellow-400 hover:text-yellow-400"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-amber-100 bg-white text-slate-700 shadow-sm"
           >
-            <FaTimes />
+            <X className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="border-b border-white/10 bg-gradient-to-r from-yellow-400/15 to-orange-500/10 px-5 py-4 sm:px-6">
-          <div className="flex items-center justify-between text-sm text-gray-200">
-            <span>{itemCount} items added</span>
-            <span className="font-bold text-yellow-400">${subtotal}</span>
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-5 py-5 sm:px-6">
+        <div className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
           {cartItems.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 text-2xl text-yellow-400">
-                <FaShoppingBag />
+              <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-amber-50 text-amber-500">
+                <ShoppingBag className="h-8 w-8" />
               </div>
-              <h3 className="mt-5 text-xl font-black text-white">Cart is empty</h3>
-              <p className="mt-2 max-w-xs text-sm leading-6 text-gray-400">
-                Add your favourite dishes and build a fast restaurant-style checkout flow.
+              <h3 className="mt-5 text-xl font-semibold text-slate-950">Cart is empty</h3>
+              <p className="mt-2 max-w-xs text-sm leading-7 text-slate-600">
+                Add a few dishes and your premium restaurant checkout will appear here.
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {cartItems.map((item) => (
-                <div
-                  key={item.name}
-                  className="rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-4"
-                >
+            cartItems.map((item) => {
+              const lineTotal = priceToNumber(item.price) * item.quantity;
+
+              return (
+                <article key={item.name} className="theme-card p-4">
                   <div className="flex gap-4">
                     <img
-                      src={item.img}
+                      src={item.image || item.img}
                       alt={item.name}
-                      className="h-20 w-20 rounded-2xl object-cover"
+                      className="h-20 w-20 rounded-xl object-cover"
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <h3 className="line-clamp-2 text-sm font-black uppercase tracking-wide text-white">
+                          <h3 className="line-clamp-2 text-base font-semibold text-slate-950">
                             {item.name}
                           </h3>
-                          <p className="mt-1 text-sm font-bold text-yellow-400">{item.price}</p>
+                          <p className="mt-1 text-sm text-slate-500">{item.price}</p>
                         </div>
                         <button
                           type="button"
                           onClick={() => removeFromCart(item.name)}
-                          className="text-gray-400 transition hover:text-red-400"
+                          className="text-slate-400 transition hover:text-red-500"
                         >
-                          <FaTrash />
+                          <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
 
                       <div className="mt-4 flex items-center justify-between gap-3">
-                        <div className="inline-flex items-center rounded-full border border-white/10 bg-black/50">
+                        <div className="inline-flex items-center rounded-full border border-amber-100 bg-white">
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.name, item.quantity - 1)}
-                            className="px-3 py-2 text-xs text-yellow-400"
+                            className="px-3 py-2 text-slate-600"
                           >
-                            <FaMinus />
+                            <Minus className="h-4 w-4" />
                           </button>
-                          <span className="min-w-10 text-center text-sm font-bold text-white">
+                          <span className="min-w-10 text-center text-sm font-semibold text-slate-900">
                             {item.quantity}
                           </span>
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.name, item.quantity + 1)}
-                            className="px-3 py-2 text-xs text-yellow-400"
+                            className="px-3 py-2 text-slate-600"
                           >
-                            <FaPlus />
+                            <Plus className="h-4 w-4" />
                           </button>
                         </div>
-                        <p className="text-sm font-bold text-white">
-                          ${(Number(item.price.replace("$", "")) * item.quantity).toFixed(2)}
-                        </p>
+
+                        <p className="text-sm font-semibold text-slate-950">{formatCurrency(lineTotal)}</p>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                </article>
+              );
+            })
           )}
         </div>
 
-        <div className="border-t border-white/10 bg-black/70 px-5 py-5 sm:px-6">
-          <div className="mb-4 flex items-center justify-between">
-            <span className="text-sm text-gray-400">Subtotal</span>
-            <span className="text-2xl font-black text-yellow-400">${subtotal}</span>
+        <div className="space-y-4 border-t border-amber-100 bg-white/80 px-5 py-5">
+          <div className="flex items-center justify-between text-sm text-slate-600">
+            <span>Subtotal</span>
+            <span className="text-2xl font-semibold text-slate-950">${subtotal}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={clearCart}
-              className="rounded-2xl border border-white/10 px-4 py-3 text-sm font-bold uppercase tracking-[0.16em] text-white transition hover:border-yellow-400 hover:text-yellow-400"
-            >
+            <Button type="button" variant="secondary" onClick={clearCart}>
               Clear
-            </button>
-            <button
-              type="button"
-              className="rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-black"
-            >
+            </Button>
+            <Button as={Link} to="/checkout" onClick={() => setIsCartOpen(false)}>
               Checkout
-            </button>
+            </Button>
           </div>
         </div>
       </aside>

@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fffaf3;
+  --color-amber-base: #f59e0b;
+  --color-amber-soft: #fde6b2;
+  --color-ink: #1f2937;
+  --color-muted: #64748b;
+  --shadow-soft: 0 14px 30px rgba(245, 158, 11, 0.12);
+  --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.08);
+  --radius-shell: 1.5rem;
+  --font-sans: "Poppins", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background:
+      radial-gradient(circle at top left, rgba(245, 158, 11, 0.16), transparent 28%),
+      radial-gradient(circle at top right, rgba(251, 191, 36, 0.12), transparent 22%),
+      #fffaf3;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@utility page-shell {
+  @apply min-h-screen bg-[#fffaf3] text-slate-800;
+}
+
+@utility page-section {
+  @apply py-16 sm:py-20;
+}
+
+@utility theme-container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility theme-card {
+  @apply rounded-xl border border-amber-100/70 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+@utility theme-pill {
+  @apply inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-amber-700;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center rounded-xl bg-[#f59e0b] px-5 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-lg;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center rounded-xl border border-amber-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md;
+}
+
+@utility btn-ghost {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 transition duration-300 hover:bg-white/70 hover:text-amber-600;
+}
+
+@utility theme-input {
+  @apply w-full rounded-xl border border-amber-100 bg-white px-4 py-3 text-slate-800 outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-200;
+}
+
+@utility section-grid {
+  @apply grid gap-8 lg:grid-cols-2 lg:items-center;
+}

@@ -1,147 +1,105 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaEnvelope,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Facebook, Instagram, Youtube } from "lucide-react";
+import { brandAssets } from "../../data/menuData";
+import Field from "../ui/Field";
+import { footerPageLinks } from "../pages/FooterPages/footerPagesData";
+
+const footerGroups = [
+  {
+    title: "Service",
+    links: ["Online Order", "Pre-Reservation", "24/7 Services", "Foodie Place", "Super Chefs"],
+  },
+  {
+    title: "Quick Links",
+    links: ["Menu", "Reviews", "Blogs", "Reserve Table", "Order Foods"],
+  },
+  {
+    title: "About",
+    links: ["Our Story", "Benefits", "Career", "Our Chefs"],
+  },
+  {
+    title: "Help",
+    links: ["Contact", "Support", "FAQ"],
+  },
+];
+
+const getFooterPath = (label) => footerPageLinks.find((link) => link.label === label)?.path || "/";
 
 const Footer = () => {
-  const restaurantLinks = [
-    { name: "Partner with Us", path: "/partner" },
-    { name: "Add Your Restaurant", path: "/add-restaurant" },
-    { name: "Restaurant App", path: "/restaurant-app" },
-    { name: "Business Support", path: "/support" },
-  ];
-
-  const companyLinks = [
-    { name: "About Us", path: "/about" },
-    { name: "Careers", path: "/careers" },
-    { name: "Privacy Policy", path: "/privacy" },
-    { name: "Terms & Conditions", path: "/terms" },
-  ];
-
-  // Animation variants for sections
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i) => ({
-      opacity: 1, 
-      y: 0, 
-      transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" }
-    })
-  };
-
   return (
-    <footer className="relative bg-zinc-950 text-gray-400 overflow-hidden">
-      {/* Subtle Background Parallax Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-yellow-400/5 blur-[120px] rounded-full pointer-events-none" />
+    <footer className="relative z-10 pb-10 pt-6">
+      <div className="theme-container">
+        <div className="rounded-[2rem] border border-amber-100 bg-white/75 p-6 shadow-md backdrop-blur sm:p-8 lg:p-10">
+          <div className="flex flex-col gap-10 border-b border-amber-100 pb-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-md space-y-4">
+              <div className="flex items-center gap-3">
+                <img src={brandAssets.logo} alt="Bites" className="h-10 w-10 rounded-full object-cover" />
+                <span className="text-xl font-semibold text-slate-950">Bites</span>
+              </div>
+              <h3 className="text-3xl font-semibold text-slate-950">Subscribe Our Newsletter</h3>
+              <p className="text-sm leading-7 text-slate-600">
+                Fresh menu drops, chef specials and reservation updates delivered in a cleaner premium style.
+              </p>
 
-      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-          
-          {/* Brand Section */}
-          <motion.div 
-            custom={0}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <h2 className="text-4xl font-black italic text-yellow-400 tracking-tighter uppercase">
-              EatMore
-            </h2>
-            <p className="mt-6 text-sm leading-relaxed text-gray-500">
-              Transforming the food industry by connecting restaurants with hungry customers. 
-              Freshness delivered, growth simplified.
-            </p>
-            <div className="flex gap-4 mt-8">
-              {[FaFacebook, FaInstagram, FaTwitter].map((Icon, idx) => (
-                <motion.div
-                  key={idx}
-                  whileHover={{ y: -5, color: "#facc15" }}
-                  className="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center cursor-pointer transition-colors"
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Field placeholder="Enter your email" className="min-w-0" />
+                <button
+                  type="button"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-500 text-white shadow-md transition hover:scale-105 hover:shadow-lg"
                 >
-                  <Icon size={18} />
-                </motion.div>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {[Facebook, Instagram, Youtube].map((Icon) => (
+                  <button
+                    key={Icon.name}
+                    type="button"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-amber-100 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:text-amber-600"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid flex-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {footerGroups.map((group) => (
+                <div key={group.title}>
+                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-950">
+                    {group.title}
+                  </h4>
+                  <ul className="mt-4 space-y-3 text-sm text-slate-600">
+                    {group.links.map((link) => (
+                      <li key={link}>
+                        <Link to={getFooterPath(link)} className="transition hover:text-amber-600">
+                          {link}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Restaurant Links */}
-          <motion.div custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6">
-              For Restaurants
-            </h3>
-            <ul className="space-y-4 text-sm">
-              {restaurantLinks.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.path} className="hover:text-yellow-400 hover:translate-x-2 inline-block transition-all duration-300">
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Company Links */}
-          <motion.div custom={2} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6">
-              Company
-            </h3>
-            <ul className="space-y-4 text-sm">
-              {companyLinks.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.path} className="hover:text-yellow-400 hover:translate-x-2 inline-block transition-all duration-300">
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Contact Section */}
-          <motion.div custom={3} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6">
-              Contact Us
-            </h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-center gap-3 group">
-                <FaEnvelope className="text-yellow-400 group-hover:scale-110 transition-transform" />
-                <span className="group-hover:text-white transition-colors">jeeturajput0302@gmail.com</span>
-              </li>
-              <li className="flex items-center gap-3 group">
-                <FaPhoneAlt className="text-yellow-400 group-hover:scale-110 transition-transform" />
-                <span className="group-hover:text-white transition-colors">+91 7817875621</span>
-              </li>
-              <li className="flex items-center gap-3 group">
-                <FaMapMarkerAlt className="text-yellow-400 group-hover:scale-110 transition-transform" />
-                <span className="group-hover:text-white transition-colors">Dehradun, India</span>
-              </li>
-            </ul>
-          </motion.div>
-
+          <div className="flex flex-col gap-3 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Bites. Crafted with a consistent restaurant-inspired design system.</p>
+            <div className="flex gap-5">
+              <Link to={getFooterPath("Privacy")} className="transition hover:text-amber-600">
+                Privacy
+              </Link>
+              <Link to={getFooterPath("Terms")} className="transition hover:text-amber-600">
+                Terms
+              </Link>
+              <Link to={getFooterPath("Support")} className="transition hover:text-amber-600">
+                Support
+              </Link>
+            </div>
+          </div>
         </div>
-
-        {/* Footer Bottom */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs tracking-widest text-gray-600 uppercase"
-        >
-          <p>
-            © 2026 <span className="text-yellow-400 font-bold">EatMore</span>. 
-            All rights reserved.
-          </p>
-          <p className="flex gap-6">
-            <span className="cursor-pointer hover:text-white">Sitemap</span>
-            <span className="cursor-pointer hover:text-white">Security</span>
-          </p>
-        </motion.div>
       </div>
     </footer>
   );

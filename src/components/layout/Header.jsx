@@ -1,229 +1,136 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../assets/logo.png";
-import { FaBars, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { brandAssets } from "../../data/menuData";
 import { useCart } from "../../context/CartContext";
+import Button from "../ui/Button";
+
+const navItems = [
+  { label: "Home", path: "/" },
+  { label: "Menu", path: "/menu" },
+  { label: "Offers", path: "/offers" },
+  { label: "Gallery", path: "/gallery" },
+  { label: "About", path: "/restaurants" },
+  { label: "Contact", path: "/contact" },
+];
 
 const Header = () => {
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
-  const { scrollY } = useScroll();
   const { itemCount, setIsCartOpen } = useCart();
 
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
-  });
-
   useEffect(() => {
-    setIsMenuOpen(false);
+    setIsOpen(false);
   }, [pathname]);
 
-  const btn = [
-    { id: 1, name: "Login", path: "/login" },
-    { id: 2, name: "Sign Up", path: "/signup" },
-  ];
-
-  const data = [
-    { id: 1, name: "Home", path: "/" },
-    { id: 2, name: "Gallery", path: "/gallery" },
-    { id: 3, name: "Restaurants", path: "/restaurants" },
-    { id: 4, name: "Menu", path: "/menubar" },
-    { id: 5, name: "Offers", path: "/offers" },
-    { id: 6, name: "Contact", path: "/contact" },
-  ];
-
-  const handleNavigate = (path) => {
-    setIsMenuOpen(false);
-    navigate(path);
-  };
-
   return (
-    <motion.div
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      style={{
-        height: isScrolled ? "70px" : "90px",
-        backgroundColor: isScrolled ? "rgba(0, 0, 0, 0.85)" : "rgba(0, 0, 0, 0.7)",
-      }}
-      className="fixed top-0 z-[100] w-full border-b border-white/10 px-3 shadow-2xl backdrop-blur-lg transition-all duration-300 sm:px-6 lg:px-10"
-    >
-      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-3">
-        <motion.div
-          onClick={() => handleNavigate("/")}
-          whileHover={{ scale: 1.05 }}
-          className="flex cursor-pointer items-center gap-2 sm:gap-3"
-        >
-          <img src={logo} alt="Logo" className="h-9 w-auto sm:h-10 md:h-12" />
-          <h1 className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-2xl font-black italic text-transparent sm:text-3xl">
-            EatMore
-          </h1>
-        </motion.div>
+    <header className="fixed inset-x-0 top-0 z-50 px-4 py-4 sm:px-6 lg:px-8">
+      <div className="theme-container">
+        <div className="flex items-center justify-between gap-4 rounded-[1.75rem] border border-white/70 bg-white/85 px-4 py-3 shadow-lg backdrop-blur sm:px-6">
+          <Link to="/" className="flex items-center gap-3">
+            <img src={brandAssets.logo} alt="Bites" className="h-11 w-11 rounded-full object-cover" />
+            <div>
+              <p className="text-lg font-semibold text-slate-950">Bites</p>
+              <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Restaurant UI</p>
+            </div>
+          </Link>
 
-        <ul className="hidden items-center gap-8 text-sm font-bold uppercase tracking-widest text-white lg:flex">
-          {data.map((item) => (
-            <li key={item.id} className="group relative">
-              <Link
+          <nav className="hidden items-center gap-1 lg:flex">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.path}
                 to={item.path}
-                className={`transition-colors duration-300 ${
-                  pathname === item.path ? "text-yellow-400" : "hover:text-yellow-400"
-                }`}
+                className={({ isActive }) =>
+                  `rounded-xl px-4 py-2 text-sm font-medium transition ${
+                    isActive ? "bg-amber-50 text-amber-600" : "text-slate-600 hover:bg-amber-50/70 hover:text-slate-950"
+                  }`
+                }
               >
-                {item.name}
-              </Link>
-              <motion.div
-                className="absolute -bottom-1 left-0 h-[2px] bg-yellow-400"
-                initial={{ width: 0 }}
-                animate={{ width: pathname === item.path ? "100%" : 0 }}
-                whileHover={{ width: "100%" }}
-                transition={{ duration: 0.3 }}
-              />
-            </li>
-          ))}
-        </ul>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
 
-        <div className="relative hidden md:block group">
-          <motion.input
-            whileFocus={{ width: 320 }}
-            type="text"
-            placeholder="Search food..."
-            className="h-10 w-56 rounded-full border border-white/20 bg-white/10 pl-4 pr-10 text-white transition-all duration-300 focus:border-yellow-400 focus:bg-white/20 focus:outline-none lg:w-64"
-          />
-          <FaSearch className="absolute right-4 top-3 text-gray-400 transition-colors group-focus-within:text-yellow-400" />
-        </div>
-
-        <div className="hidden items-center gap-3 lg:flex">
-          <button
-            type="button"
-            onClick={() => setIsCartOpen(true)}
-            className="relative flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:border-yellow-400 hover:text-yellow-400"
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-yellow-400 text-black">
-              <FaShoppingCart />
-            </span>
-            <span>Cart</span>
-            {itemCount > 0 && (
-              <span className="rounded-full bg-orange-500 px-2 py-0.5 text-xs font-black text-black">
-                {itemCount}
-              </span>
-            )}
-          </button>
-
-          {btn.map((item) => (
-            <motion.button
-              key={item.id}
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleNavigate(item.path)}
-              className={`rounded-full px-5 py-2 text-sm font-bold italic shadow-lg transition-all xl:px-6 ${
-                item.name === "Login"
-                  ? "border border-yellow-400 bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-black"
-                  : "bg-gradient-to-r from-yellow-400 to-orange-500 text-black hover:shadow-yellow-500/20"
-              }`}
+          <div className="hidden items-center gap-3 lg:flex">
+            <button
+              type="button"
+              className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-amber-50/60 p-0"
+              aria-label="Search"
             >
-              {item.name}
-            </motion.button>
-          ))}
-        </div>
+              <Search className="h-4 w-4" />
+            </button>
 
-        <div className="flex items-center gap-2 lg:hidden">
+            <Link
+              to="/profile"
+              className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-white p-0"
+              aria-label="Profile"
+            >
+              <User className="h-4 w-4" />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
+              className="relative inline-flex h-11 items-center gap-3 rounded-xl border border-amber-100 bg-white px-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <ShoppingBag className="h-4 w-4 text-amber-500" />
+              <span className="text-sm font-medium text-slate-700">Cart</span>
+              {itemCount > 0 ? (
+                <span className="rounded-full bg-amber-500 px-2 py-0.5 text-xs font-semibold text-white">
+                  {itemCount}
+                </span>
+              ) : null}
+            </button>
+
+            <Button as={Link} to="/checkout">
+              Reserve Table
+            </Button>
+          </div>
+
           <button
             type="button"
-            onClick={() => setIsCartOpen(true)}
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white transition hover:border-yellow-400 hover:text-yellow-400"
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-amber-100 bg-white text-slate-700 shadow-sm lg:hidden"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            <FaShoppingCart className="text-base" />
-            {itemCount > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1 text-[10px] font-black text-black">
-                {itemCount}
-              </span>
-            )}
-          </button>
-
-          <button
-            type="button"
-            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white transition hover:border-yellow-400 hover:text-yellow-400"
-          >
-            {isMenuOpen ? <FaTimes className="text-lg" /> : <FaBars className="text-lg" />}
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
+
+        {isOpen ? (
+          <div className="mt-3 rounded-[1.5rem] border border-amber-100 bg-white/95 p-4 shadow-lg backdrop-blur lg:hidden">
+            <nav className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `rounded-xl px-4 py-3 text-sm font-medium transition ${
+                      isActive ? "bg-amber-50 text-amber-600" : "text-slate-700 hover:bg-amber-50"
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <Button variant="secondary" as={Link} to="/profile">
+                Profile
+              </Button>
+              <Button
+                type="button"
+                onClick={() => setIsCartOpen(true)}
+                className="justify-center"
+              >
+                Cart {itemCount > 0 ? `(${itemCount})` : ""}
+              </Button>
+            </div>
+          </div>
+        ) : null}
       </div>
-
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: isMenuOpen ? 1 : 0,
-          y: isMenuOpen ? 0 : -12,
-          pointerEvents: isMenuOpen ? "auto" : "none",
-        }}
-        transition={{ duration: 0.22 }}
-        className="absolute left-3 right-3 top-[calc(100%+0.75rem)] rounded-3xl border border-white/10 bg-black/95 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:left-6 sm:right-6 lg:hidden"
-      >
-        <div className="relative mb-4 group md:hidden">
-          <input
-            type="text"
-            placeholder="Search food..."
-            className="h-11 w-full rounded-full border border-white/15 bg-white/8 pl-4 pr-10 text-sm text-white transition focus:border-yellow-400 focus:outline-none"
-          />
-          <FaSearch className="absolute right-4 top-3.5 text-gray-400 transition-colors group-focus-within:text-yellow-400" />
-        </div>
-
-        <ul className="flex flex-col gap-2">
-          {data.map((item) => (
-            <li key={item.id}>
-              <Link
-                to={item.path}
-                className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold uppercase tracking-[0.18em] transition ${
-                  pathname === item.path
-                    ? "bg-yellow-400 text-black"
-                    : "bg-white/5 text-white hover:bg-white/10 hover:text-yellow-400"
-                }`}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <button
-          type="button"
-          onClick={() => {
-            setIsMenuOpen(false);
-            setIsCartOpen(true);
-          }}
-          className="mt-4 flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:border-yellow-400 hover:text-yellow-400"
-        >
-          <span>Open Cart</span>
-          <span className="rounded-full bg-yellow-400 px-2 py-0.5 text-xs text-black">
-            {itemCount}
-          </span>
-        </button>
-
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {btn.map((item) => (
-            <motion.button
-              key={item.id}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => handleNavigate(item.path)}
-              className={`rounded-2xl px-4 py-3 text-sm font-bold italic transition-all ${
-                item.name === "Login"
-                  ? "border border-yellow-400 bg-transparent text-yellow-400"
-                  : "bg-gradient-to-r from-yellow-400 to-orange-500 text-black"
-              }`}
-            >
-              {item.name}
-            </motion.button>
-          ))}
-        </div>
-      </motion.div>
-    </motion.div>
+    </header>
   );
 };
 

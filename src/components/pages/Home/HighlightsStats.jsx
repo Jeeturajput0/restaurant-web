@@ -1,85 +1,97 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useInView, useSpring, useTransform } from "framer-motion";
-
-// Helper component for the counting effect
-const Counter = ({ value }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-
-  const springValue = useSpring(0, {
-    mass: 1,
-    stiffness: 100,
-    damping: 30,
-  });
-
-  useEffect(() => {
-    if (inView) {
-      springValue.set(value);
-    }
-  }, [inView, value, springValue]);
-
-  // Transform the raw motion value into a rounded string
-  const displayValue = useTransform(springValue, (latest) =>
-    Math.round(latest).toLocaleString()
-  );
-
-  // FIX: Change <span> to <motion.span> to render MotionValues
-  return <motion.span ref={ref}>{displayValue}</motion.span>;
-};
+import React from "react";
+import { Download, Star } from "lucide-react";
+import { appPromo, chefs, highlights, testimonials } from "../../../data/menuData";
+import SectionHeading from "../../ui/SectionHeading";
+import Button from "../../ui/Button";
 
 const HighlightsStats = () => {
-  const stats = [
-    { label: "Restaurants", value: 1000, suffix: "+" },
-    { label: "Happy Users", value: 10, suffix: "k+" }, // Changed value to 10 for "10k+"
-    { label: "Delivery Partners", value: 500, suffix: "+" },
-    { label: "Average Rating", value: 4.8, suffix: "★", isFloat: true },
-  ];
-
   return (
-    <section className="relative bg-black py-24 px-6 md:px-14 lg:px-24 text-white overflow-hidden">
-      {/* Background Parallax Orbs */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1] 
-        }}
-        transition={{ duration: 8, repeat: Infinity }}
-        className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/10 blur-[120px] rounded-full -z-0" 
-      />
+    <>
+      <section className="page-section">
+        <div className="theme-container">
+          <div className="grid gap-6 md:grid-cols-4">
+            {highlights.map((item) => (
+              <article key={item.label} className="theme-card p-6 text-center">
+                <p className="text-3xl font-semibold text-slate-950">{item.value}</p>
+                <p className="mt-2 text-sm uppercase tracking-[0.2em] text-slate-500">{item.label}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.6 }}
-            whileHover={{ y: -10 }}
-            className="group bg-gradient-to-b from-gray-900/50 to-black/50 border border-gray-800 rounded-3xl p-8 text-center hover:border-yellow-400 transition-all shadow-2xl"
-          >
-            <h3 className="text-4xl md:text-5xl font-black text-yellow-400 flex items-center justify-center">
-              {stat.isFloat ? (
-                <span>{stat.value}</span> 
-              ) : (
-                <Counter value={stat.value} />
-              )}
-              <span className="ml-1">{stat.suffix}</span>
-            </h3>
-            
-            <p className="text-gray-400 mt-3 font-medium uppercase tracking-widest text-sm group-hover:text-white transition-colors">
-              {stat.label}
-            </p>
+      <section className="page-section">
+        <div className="theme-container space-y-10">
+          <SectionHeading
+            title="What our customer says?"
+            description="Soft testimonial cards preserve the premium restaurant feel while making the content easier to scan."
+          />
 
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: "40%" }}
-              className="h-1 bg-yellow-400 mx-auto mt-4 rounded-full"
-            />
-          </motion.div>
-        ))}
-      </div>
-    </section>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <article key={testimonial.name} className="theme-card p-6">
+                <div className="mb-5 flex items-center gap-1 text-amber-400">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star key={`${testimonial.name}-${index}`} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm leading-7 text-slate-600">"{testimonial.review}"</p>
+                <div className="mt-6">
+                  <p className="text-lg font-semibold text-slate-950">{testimonial.name}</p>
+                  <p className="text-sm text-slate-500">{testimonial.role}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="page-section">
+        <div className="theme-container space-y-10">
+          <SectionHeading title="Meet our chefs" />
+
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {chefs.map((chef) => (
+              <article key={chef.name} className="theme-card p-4">
+                <img src={chef.image} alt={chef.name} className="h-72 w-full rounded-2xl object-cover" />
+                <div className="px-1 pb-2 pt-5">
+                  <h3 className="text-xl font-semibold text-slate-950">{chef.name}</h3>
+                  <p className="mt-1 text-sm text-slate-500">{chef.specialty}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="page-section ">
+        <div className="theme-container">
+          <div className="grid gap-10 rounded-[2rem] bg-[#fff4df] p-6 shadow-lg sm:p-8 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:p-10">
+            <div className="space-y-6">
+              <SectionHeading
+                title={appPromo.title}
+                description={appPromo.description}
+              />
+
+              <div className="flex flex-wrap gap-4">
+                <Button className="gap-2">
+                  <Download className="h-4 w-4" />
+                  App Store
+                </Button>
+                <Button variant="secondary" className="gap-2">
+                  <Download className="h-4 w-4" />
+                  Google Play
+                </Button>
+              </div>
+            </div>
+
+            <div className="mx-auto w-full max-w-sm">
+              <img src={appPromo.image} alt="Mobile app preview" className="w-full rounded-[2rem] object-cover shadow-lg" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

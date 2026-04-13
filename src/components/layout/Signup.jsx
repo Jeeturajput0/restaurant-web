@@ -1,86 +1,54 @@
 import React from "react";
-import { FaUser, FaEnvelope, FaLock, FaPhoneAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { LockKeyhole, Mail, Phone, User } from "lucide-react";
+import Button from "../ui/Button";
+import Field from "../ui/Field";
 
 const Signup = () => {
-  const navigate=useNavigate()
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4">
-      <div className="bg-[#111] border border-yellow-400/30 rounded-2xl w-full max-w-md p-8 shadow-xl">
-
-        <h2 className="text-3xl font-extrabold text-yellow-400 text-center">
-          Create Account
-        </h2>
-        <p className="text-gray-400 text-sm text-center mt-2">
-          Join EatMore & grow your restaurant
-        </p>
-
-        <form className="mt-8 space-y-4">
-
-          <div>
-            <label className="text-sm text-gray-400">Full Name</label>
-            <div className="flex items-center bg-black border border-gray-700 rounded-lg px-3 mt-1">
-              <FaUser className="text-gray-500" />
-              <input
-                type="text"
-                placeholder="Restaurant Owner Name"
-                className="bg-transparent outline-none px-3 py-2 text-gray-200 w-full"
-              />
-            </div>
+    <section className="page-section pb-20">
+      <div className="theme-container">
+        <div className="mx-auto max-w-md theme-card p-6 sm:p-8">
+          <div className="text-center">
+            <span className="theme-pill">Create Account</span>
+            <h1 className="mt-4 text-3xl font-semibold text-slate-950">Join the restaurant experience</h1>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              Cleaner forms, softer shadows and a more premium layout now carry through signup too.
+            </p>
           </div>
 
-          <div>
-            <label className="text-sm text-gray-400">Email</label>
-            <div className="flex items-center bg-black border border-gray-700 rounded-lg px-3 mt-1">
-              <FaEnvelope className="text-gray-500" />
-              <input
-                type="email"
-                placeholder="you@example.com"
-                className="bg-transparent outline-none px-3 py-2 text-gray-200 w-full"
-              />
+          <form className="mt-8 space-y-5">
+            <div className="relative">
+              <User className="pointer-events-none absolute left-4 top-[3.1rem] h-4 w-4 text-slate-400" />
+              <Field label="Full Name" placeholder="Restaurant guest name" className="pl-11" />
             </div>
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-400">Phone</label>
-            <div className="flex items-center bg-black border border-gray-700 rounded-lg px-3 mt-1">
-              <FaPhoneAlt className="text-gray-500" />
-              <input
-                type="tel"
-                placeholder="+91 XXXXX XXXXX"
-                className="bg-transparent outline-none px-3 py-2 text-gray-200 w-full"
-              />
+            <div className="relative">
+              <Mail className="pointer-events-none absolute left-4 top-[3.1rem] h-4 w-4 text-slate-400" />
+              <Field label="Email" type="email" placeholder="you@example.com" className="pl-11" />
             </div>
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-400">Password</label>
-            <div className="flex items-center bg-black border border-gray-700 rounded-lg px-3 mt-1">
-              <FaLock className="text-gray-500" />
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="bg-transparent outline-none px-3 py-2 text-gray-200 w-full"
-              />
+            <div className="relative">
+              <Phone className="pointer-events-none absolute left-4 top-[3.1rem] h-4 w-4 text-slate-400" />
+              <Field label="Phone" type="tel" placeholder="+1 234 567 890" className="pl-11" />
             </div>
-          </div>
+            <div className="relative">
+              <LockKeyhole className="pointer-events-none absolute left-4 top-[3.1rem] h-4 w-4 text-slate-400" />
+              <Field label="Password" type="password" placeholder="Create password" className="pl-11" />
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-yellow-400 text-black font-bold py-2 rounded-lg hover:bg-yellow-300 transition"
-          >
-            Sign Up
-          </button>
-        </form>
+            <Button type="button" className="w-full">
+              Sign Up
+            </Button>
+          </form>
 
-        <p className="text-sm text-gray-400 text-center mt-6">
-          Already have an account?{" "}
-          <button onClick={()=>navigate("/login")} className="text-yellow-400 hover:underline">
-            Login
-          </button>
-        </p>
+          <p className="mt-6 text-center text-sm text-slate-600">
+            Already have an account?{" "}
+            <Link to="/login" className="font-medium text-amber-600">
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

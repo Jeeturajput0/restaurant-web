@@ -9,17 +9,23 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (item, quantity = 1) => {
+    const normalizedItem = {
+      ...item,
+      image: item.image || item.img || "",
+      img: item.image || item.img || "",
+    };
+
     setCartItems((prev) => {
-      const existing = prev.find((cartItem) => cartItem.name === item.name);
+      const existing = prev.find((cartItem) => cartItem.name === normalizedItem.name);
       if (existing) {
         return prev.map((cartItem) =>
-          cartItem.name === item.name
+          cartItem.name === normalizedItem.name
             ? { ...cartItem, quantity: cartItem.quantity + quantity }
             : cartItem
         );
       }
 
-      return [...prev, { ...item, quantity }];
+      return [...prev, { ...normalizedItem, quantity }];
     });
     setIsCartOpen(true);
   };
