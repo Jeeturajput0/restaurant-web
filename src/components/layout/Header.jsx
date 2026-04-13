@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { LogIn, Menu, Moon, Search, ShoppingBag, Sun, User, UserPlus, X } from "lucide-react";
 import { brandAssets } from "../../data/menuData";
 import { useCart } from "../../context/CartContext";
+import { useTheme } from "../../context/ThemeContext";
 import Button from "../ui/Button";
 
 const navItems = [
@@ -18,6 +19,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
   const { itemCount, setIsCartOpen } = useCart();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     setIsOpen(false);
@@ -60,6 +62,15 @@ const Header = () => {
               <Search className="h-4 w-4" />
             </button>
 
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-white p-0"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+
             <Link
               to="/profile"
               className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-white p-0"
@@ -82,9 +93,12 @@ const Header = () => {
               ) : null}
             </button>
 
-            <Button as={Link} to="/checkout">
-              Reserve Table
+            <Button as={Link} to="/login" variant="secondary" className="gap-2">
+              <LogIn className="h-4 w-4" />
+              Login
             </Button>
+
+           
           </div>
 
           <button
@@ -119,14 +133,27 @@ const Header = () => {
               <Button variant="secondary" as={Link} to="/profile">
                 Profile
               </Button>
-              <Button
-                type="button"
-                onClick={() => setIsCartOpen(true)}
-                className="justify-center"
-              >
+              <Button type="button" onClick={() => setIsCartOpen(true)} className="justify-center">
                 Cart {itemCount > 0 ? `(${itemCount})` : ""}
               </Button>
             </div>
+
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <Button variant="secondary" as={Link} to="/login" className="gap-2">
+                <LogIn className="h-4 w-4" />
+                Login
+              </Button>
+              
+            </div>
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-100 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-amber-300"
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
           </div>
         ) : null}
       </div>

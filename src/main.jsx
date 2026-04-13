@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import ScrollToTop from './components/layout/ScrollToTop.jsx'
+import { ThemeProvider } from './context/ThemeContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <BrowserRouter>
-   <ScrollToTop />
-   <App />
-   </BrowserRouter>
+   <ThemeProvider>
+    <BrowserRouter>
+    <ScrollToTop />
+    <App />
+    </BrowserRouter>
+   </ThemeProvider>
   </StrictMode>,
 )
