@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 const CartContext = createContext(null);
 
-const parsePrice = (price) => Number(String(price).replace("$", "")) || 0;
+const parsePrice = (price) => Number(String(price).replace(/[^0-9.]/g, "")) || 0;
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -56,8 +56,7 @@ export const CartProvider = ({ children }) => {
   const subtotal = useMemo(
     () =>
       cartItems
-        .reduce((total, item) => total + parsePrice(item.price) * item.quantity, 0)
-        .toFixed(2),
+        .reduce((total, item) => total + parsePrice(item.price) * item.quantity, 0),
     [cartItems]
   );
 

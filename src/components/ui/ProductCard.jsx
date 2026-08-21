@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
 import Button from "./Button";
+import { formatCurrency } from "../../lib/menu";
 
 const ProductCard = ({ item, onAddToCart }) => {
   return (
@@ -40,7 +41,7 @@ const ProductCard = ({ item, onAddToCart }) => {
 
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-2xl font-semibold text-slate-950">{item.price}</p>
+            <p className="text-2xl font-semibold text-slate-950">{formatCurrency(item.price)}</p>
             <p className="text-sm text-slate-500">{item.deliveryTime}</p>
           </div>
 

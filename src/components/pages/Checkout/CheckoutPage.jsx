@@ -4,12 +4,13 @@ import { useCart } from "../../../context/CartContext";
 import Button from "../../ui/Button";
 import Field from "../../ui/Field";
 import SectionHeading from "../../ui/SectionHeading";
+import { formatCurrency } from "../../../lib/menu";
 
 const CheckoutPage = () => {
   const { cartItems, subtotal } = useCart();
-  const deliveryCharge = cartItems.length > 0 ? 4 : 0;
-  const serviceFee = cartItems.length > 0 ? 2 : 0;
-  const total = (Number(subtotal) + deliveryCharge + serviceFee).toFixed(2);
+  const deliveryCharge = cartItems.length > 0 ? 49 : 0;
+  const serviceFee = cartItems.length > 0 ? 29 : 0;
+  const total = Number(subtotal) + deliveryCharge + serviceFee;
 
   return (
     <section className="page-section pb-20">
@@ -24,7 +25,7 @@ const CheckoutPage = () => {
           <form className="theme-card grid gap-5 p-6 sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Full Name" placeholder="Enter your full name" />
-              <Field label="Phone Number" type="tel" placeholder="+1 234 567 890" />
+              <Field label="Phone Number" type="tel" placeholder="+91 98765 43210" />
             </div>
             <Field label="Email Address" type="email" placeholder="you@example.com" />
             <Field label="Delivery Address" as="textarea" rows="4" placeholder="Apartment, street and city" />
@@ -63,25 +64,25 @@ const CheckoutPage = () => {
                   cartItems.map((item) => (
                     <div key={item.name} className="flex items-center justify-between gap-4">
                       <span>{item.name} x {item.quantity}</span>
-                      <span>{item.price}</span>
+                      <span>{formatCurrency(item.price)}</span>
                     </div>
                   ))
                 )}
                 <div className="flex items-center justify-between border-t border-amber-100 pt-4">
                   <span>Subtotal</span>
-                  <span>${subtotal}</span>
+                  <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Delivery</span>
-                  <span>${deliveryCharge.toFixed(2)}</span>
+                  <span>{formatCurrency(deliveryCharge)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Service Fee</span>
-                  <span>${serviceFee.toFixed(2)}</span>
+                  <span>{formatCurrency(serviceFee)}</span>
                 </div>
                 <div className="flex items-center justify-between text-lg font-semibold text-slate-950">
                   <span>Total</span>
-                  <span>${total}</span>
+                  <span>{formatCurrency(total)}</span>
                 </div>
               </div>
             </article>

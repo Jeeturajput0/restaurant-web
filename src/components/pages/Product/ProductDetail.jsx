@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Minus, Plus, ShieldCheck, Star, Timer } from "lucide-react";
+import { ChevronRight, Heart, Minus, Plus, ShieldCheck, Star, Timer, Truck } from "lucide-react";
 import { useCart } from "../../../context/CartContext";
 import { getItemBySlug, priceToNumber, formatCurrency } from "../../../lib/menu";
 import { menuItems } from "../../../data/menuData";
@@ -21,9 +21,18 @@ const ProductDetail = () => {
 
   return (
     <section className="page-section pb-20">
-      <div className="theme-container space-y-14">
+      <div className="theme-container space-y-10">
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
+          <Link to="/" className="transition hover:text-amber-600">Home</Link>
+          <ChevronRight className="h-4 w-4" />
+          <Link to="/menu" className="transition hover:text-amber-600">Menu</Link>
+          <ChevronRight className="h-4 w-4" />
+          <span className="font-medium text-slate-800">{item.name}</span>
+        </nav>
+
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <article className="theme-card overflow-hidden p-4 sm:p-5">
+          <article className="theme-card relative overflow-hidden p-4 sm:p-5">
+            {item.badge ? <span className="theme-pill absolute left-8 top-8 z-10">{item.badge}</span> : null}
             <img src={item.image} alt={item.name} className="h-[22rem] w-full rounded-[1.5rem] object-cover sm:h-[30rem]" />
           </article>
 
@@ -40,12 +49,13 @@ const ProductDetail = () => {
               <div>
                 <h1 className="text-4xl font-semibold text-slate-950 sm:text-5xl">{item.name}</h1>
                 <p className="mt-4 text-base leading-8 text-slate-600">{item.description}</p>
+                <p className="mt-3 text-sm font-medium text-emerald-700">● Available to order now</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl bg-amber-50 px-4 py-4">
                   <p className="text-sm text-slate-500">Unit price</p>
-                  <p className="mt-2 text-2xl font-semibold text-slate-950">{item.price}</p>
+                  <p className="mt-2 text-2xl font-semibold text-slate-950">{formatCurrency(item.price)}</p>
                 </div>
                 <div className="rounded-2xl bg-white px-4 py-4 shadow-sm">
                   <p className="text-sm text-slate-500">Delivery</p>
@@ -85,15 +95,36 @@ const ProductDetail = () => {
                 <p className="text-xl font-semibold text-slate-950">Total {total}</p>
               </div>
 
-              <div className="flex  gap-3">
+              <div className="flex flex-wrap gap-3">
                 <Button type="button" onClick={() => addToCart(item, quantity)}>
                   Add To Cart
                 </Button>
                 <Button as={Link} to="/checkout" variant="secondary">
                   Go To Checkout
                 </Button>
+                <button type="button" aria-label={`Save ${item.name}`} className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200 bg-white text-amber-600 transition hover:bg-amber-50">
+                  <Heart className="h-5 w-5" />
+                </button>
               </div>
             </div>
+          </article>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          <article className="rounded-2xl border border-amber-100 bg-white p-5">
+            <Truck className="h-5 w-5 text-amber-500" />
+            <h2 className="mt-3 font-semibold text-slate-950">Quick delivery</h2>
+            <p className="mt-1 text-sm leading-6 text-slate-600">Freshly prepared and delivered in {item.deliveryTime}.</p>
+          </article>
+          <article className="rounded-2xl border border-amber-100 bg-white p-5">
+            <ShieldCheck className="h-5 w-5 text-amber-500" />
+            <h2 className="mt-3 font-semibold text-slate-950">Fresh ingredients</h2>
+            <p className="mt-1 text-sm leading-6 text-slate-600">Made to order with quality ingredients and careful packing.</p>
+          </article>
+          <article className="rounded-2xl border border-amber-100 bg-white p-5">
+            <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
+            <h2 className="mt-3 font-semibold text-slate-950">Loved by diners</h2>
+            <p className="mt-1 text-sm leading-6 text-slate-600">Rated {item.rating}/5 by guests who ordered this dish.</p>
           </article>
         </div>
 

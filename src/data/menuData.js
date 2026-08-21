@@ -54,7 +54,7 @@ const rawMenuItems = [
   {
     name: "Tomato Bruschetta",
     description: "Tomatoes, olive oil, herbs and whipped ricotta on toasted bread.",
-    price: "$14.00",
+    price: 349,
     image: food1,
     category: "Special Foods",
     rating: 4.8,
@@ -64,7 +64,7 @@ const rawMenuItems = [
   {
     name: "Avocado Mango Salsa",
     description: "A bright and zesty salad bowl with creamy avocado and ripe mango.",
-    price: "$16.00",
+    price: 399,
     image: food2,
     category: "Italian",
     rating: 4.7,
@@ -74,7 +74,7 @@ const rawMenuItems = [
   {
     name: "Marinated Grilled Shrimp",
     description: "Smoky grilled shrimp plated with citrus dressing and greens.",
-    price: "$22.00",
+    price: 549,
     image: food3,
     category: "Japanese",
     rating: 4.9,
@@ -84,7 +84,7 @@ const rawMenuItems = [
   {
     name: "Baked Potato Skins",
     description: "Crispy potato skins with garlic butter and melted cheese.",
-    price: "$12.00",
+    price: 299,
     image: food4,
     category: "Snacks",
     rating: 4.6,
@@ -93,7 +93,7 @@ const rawMenuItems = [
   {
     name: "Braised Pork Chops",
     description: "Slow-braised chops with caramelized onions and rosemary jus.",
-    price: "$24.00",
+    price: 599,
     image: food5,
     category: "Lunch",
     rating: 4.8,
@@ -102,7 +102,7 @@ const rawMenuItems = [
   {
     name: "Prime Rib",
     description: "Tender prime rib served with roast vegetables and house sauce.",
-    price: "$28.00",
+    price: 699,
     image: food6,
     category: "Special Foods",
     rating: 4.9,
@@ -111,7 +111,7 @@ const rawMenuItems = [
   {
     name: "Coconut Fried Chicken",
     description: "Golden fried chicken with coconut seasoning and lime aioli.",
-    price: "$19.00",
+    price: 449,
     image: food7,
     category: "Lunch",
     rating: 4.7,
@@ -120,7 +120,7 @@ const rawMenuItems = [
   {
     name: "Sriracha Beef Skewers",
     description: "Charred beef skewers glazed with sweet heat and sesame.",
-    price: "$18.00",
+    price: 429,
     image: food8,
     category: "Snacks",
     rating: 4.8,
@@ -129,7 +129,7 @@ const rawMenuItems = [
   {
     name: "Chicken With Garlic Tomatoes",
     description: "Juicy chicken simmered in garlic tomato sauce and herbs.",
-    price: "$21.00",
+    price: 499,
     image: food9,
     category: "Italian",
     rating: 4.7,
@@ -138,7 +138,7 @@ const rawMenuItems = [
   {
     name: "Terrific Turkey Chili",
     description: "Comforting turkey chili with peppers, beans and herbs.",
-    price: "$13.00",
+    price: 319,
     image: food10,
     category: "Drinks",
     rating: 4.5,
@@ -147,7 +147,7 @@ const rawMenuItems = [
   {
     name: "Italian Sausage Tortellini",
     description: "Cheese tortellini in a creamy sausage and herb broth.",
-    price: "$17.00",
+    price: 419,
     image: food11,
     category: "Italian",
     rating: 4.8,
@@ -156,7 +156,7 @@ const rawMenuItems = [
   {
     name: "Cream of Asparagus Soup",
     description: "Silky asparagus soup finished with cracked pepper.",
-    price: "$11.00",
+    price: 279,
     image: food12,
     category: "Drinks",
     rating: 4.4,
@@ -165,7 +165,7 @@ const rawMenuItems = [
   {
     name: "Italian Sausage Soup",
     description: "A hearty bowl layered with sausage, zucchini and herbs.",
-    price: "$14.00",
+    price: 349,
     image: food13,
     category: "Lunch",
     rating: 4.6,
@@ -174,7 +174,7 @@ const rawMenuItems = [
   {
     name: "Creamy Chicken Wild Rice Soup",
     description: "Comfort food classic with slow-cooked chicken and wild rice.",
-    price: "$15.00",
+    price: 369,
     image: food14,
     category: "Special Foods",
     rating: 4.7,
@@ -183,7 +183,7 @@ const rawMenuItems = [
   {
     name: "Ham And Potato Soup",
     description: "Creamy potato soup with savory ham and buttery finish.",
-    price: "$12.00",
+    price: 299,
     image: food15,
     category: "Lunch",
     rating: 4.5,
@@ -192,7 +192,7 @@ const rawMenuItems = [
   {
     name: "Summer Berry Coconut Tart",
     description: "Coconut tart layered with seasonal berries and cream.",
-    price: "$10.00",
+    price: 249,
     image: food16,
     category: "Mexican",
     rating: 4.8,
@@ -201,7 +201,7 @@ const rawMenuItems = [
   {
     name: "Pumpkin Cookies Cream Cheese",
     description: "Soft pumpkin cookies topped with whipped cream cheese.",
-    price: "$9.00",
+    price: 219,
     image: food17,
     category: "Mexican",
     rating: 4.6,
@@ -210,7 +210,7 @@ const rawMenuItems = [
   {
     name: "Double Chocolate Cupcakes",
     description: "Rich chocolate cupcakes with glossy ganache topping.",
-    price: "$8.00",
+    price: 199,
     image: food18,
     category: "Dessert",
     rating: 4.9,
@@ -324,7 +324,7 @@ export const offerCards = [
     id: 3,
     title: "Free Delivery",
     code: "NOFEE",
-    description: "No delivery fee on curated orders above $35.",
+    description: "No delivery fee on curated orders above ₹999.",
     image: offer13,
   },
   {

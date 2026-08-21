@@ -73,7 +73,7 @@ const CartDrawer = () => {
                           <h3 className="line-clamp-2 text-base font-semibold text-slate-950">
                             {item.name}
                           </h3>
-                          <p className="mt-1 text-sm text-slate-500">{item.price}</p>
+                          <p className="mt-1 text-sm text-slate-500">{formatCurrency(item.price)}</p>
                         </div>
                         <button
                           type="button"
@@ -118,7 +118,7 @@ const CartDrawer = () => {
         <div className="space-y-4 border-t border-amber-100 bg-white/80 px-5 py-5">
           <div className="flex items-center justify-between text-sm text-slate-600">
             <span>Subtotal</span>
-            <span className="text-2xl font-semibold text-slate-950">${subtotal}</span>
+            <span className="text-2xl font-semibold text-slate-950">{formatCurrency(subtotal)}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <Button type="button" variant="secondary" onClick={clearCart}>

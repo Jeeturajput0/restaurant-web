@@ -94,20 +94,20 @@ const CartPage = () => {
             <div className="mt-6 space-y-4 text-sm text-slate-600">
               <div className="flex items-center justify-between">
                 <span>Subtotal</span>
-                <span>${subtotal}</span>
+                <span>{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Delivery</span>
-                <span>{cartItems.length > 0 ? "$4.00" : "$0.00"}</span>
+                <span>{formatCurrency(cartItems.length > 0 ? 49 : 0)}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Service fee</span>
-                <span>{cartItems.length > 0 ? "$2.00" : "$0.00"}</span>
+                <span>{formatCurrency(cartItems.length > 0 ? 29 : 0)}</span>
               </div>
               <div className="flex items-center justify-between border-t border-amber-100 pt-4 text-lg font-semibold text-slate-950">
                 <span>Total</span>
                 <span>
-                  {formatCurrency(Number(subtotal) + (cartItems.length > 0 ? 6 : 0))}
+                  {formatCurrency(Number(subtotal) + (cartItems.length > 0 ? 78 : 0))}
                 </span>
               </div>
             </div>
