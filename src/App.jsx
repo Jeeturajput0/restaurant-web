@@ -15,6 +15,7 @@ import CheckoutPage from "./components/pages/Checkout/CheckoutPage";
 import ProfilePage from "./components/pages/Profile/ProfilePage";
 import FooterDetailPage from "./components/pages/FooterPages/FooterDetailPage";
 import { footerPageLinks } from "./components/pages/FooterPages/footerPagesData";
+import AdminDashboard from "./components/pages/Admin/AdminDashboard";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/gallery" element={<Gallery />} />

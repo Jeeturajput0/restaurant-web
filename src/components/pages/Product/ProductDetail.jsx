@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ChevronRight, Heart, Minus, Plus, ShieldCheck, Star, Timer, Truck } from "lucide-react";
 import { useCart } from "../../../context/CartContext";
@@ -6,6 +6,7 @@ import { getItemBySlug, priceToNumber, formatCurrency } from "../../../lib/menu"
 import { menuItems } from "../../../data/menuData";
 import Button from "../../ui/Button";
 import ProductCard from "../../ui/ProductCard";
+import { getProducts } from "../../../lib/api";
 
 const fallbackItem = menuItems[0];
 
@@ -13,8 +14,19 @@ const ProductDetail = () => {
   const { slug } = useParams();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [adminItem, setAdminItem] = useState(null);
 
-  const item = getItemBySlug(slug) || fallbackItem;
+  useEffect(() => {
+    let isCurrent = true;
+    getProducts()
+      .then((products) => {
+        if (isCurrent) setAdminItem(products.find((product) => product.slug === slug) || null);
+      })
+      .catch(() => { if (isCurrent) setAdminItem(null); });
+    return () => { isCurrent = false; };
+  }, [slug]);
+
+  const item = adminItem || getItemBySlug(slug) || fallbackItem;
 
   const total = useMemo(() => formatCurrency(priceToNumber(item.price) * quantity), [item.price, quantity]);
   const relatedItems = menuItems.filter((menuItem) => menuItem.slug !== item.slug).slice(0, 3);

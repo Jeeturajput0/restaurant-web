@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { LogIn, Menu, Moon, Search, ShoppingBag, Sun, User, UserPlus, X } from "lucide-react";
+import { LayoutDashboard, LogIn, Menu, Moon, Search, ShoppingBag, Sun, User, X } from "lucide-react";
 import { brandAssets } from "../../data/menuData";
 import { useCart } from "../../context/CartContext";
 import { useTheme } from "../../context/ThemeContext";
@@ -77,6 +77,10 @@ const Header = () => {
               aria-label="Profile"
             >
               <User className="h-4 w-4" />
+            </Link>
+
+            <Link to="/admin" className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-white p-0" aria-label="Admin dashboard">
+              <LayoutDashboard className="h-4 w-4" />
             </Link>
 
             <button

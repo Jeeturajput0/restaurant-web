@@ -1,20 +1,28 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useCart } from "../../../context/CartContext";
 import { menuCategories, menuItems } from "../../../data/menuData";
 import ProductCard from "../../ui/ProductCard";
 import SectionHeading from "../../ui/SectionHeading";
+import { getProducts } from "../../../lib/api";
 
 const Menu = () => {
   const { addToCart } = useCart();
   const [activeCategory, setActiveCategory] = useState("All");
+  const [adminItems, setAdminItems] = useState([]);
+
+  useEffect(() => {
+    getProducts().then(setAdminItems).catch(() => setAdminItems([]));
+  }, []);
+
+  const allItems = useMemo(() => [...adminItems, ...menuItems], [adminItems]);
 
   const filteredItems = useMemo(() => {
     if (activeCategory === "All") {
-      return menuItems;
+      return allItems;
     }
 
-    return menuItems.filter((item) => item.category === activeCategory);
-  }, [activeCategory]);
+    return allItems.filter((item) => item.category === activeCategory);
+  }, [activeCategory, allItems]);
 
   return (
     <section className="page-section pb-20">
