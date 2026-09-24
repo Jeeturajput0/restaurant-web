@@ -9,9 +9,10 @@ import Button from "../ui/Button";
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Menu", path: "/menu" },
+  { label: "Orders", path: "/orders" },
+  { label: "Bookings", path: "/reservations" },
+  { label: "Wishlist", path: "/wishlist" },
   { label: "Offers", path: "/offers" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "About", path: "/restaurants" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -79,7 +80,7 @@ const Header = () => {
               <User className="h-4 w-4" />
             </Link>
 
-            <Link to="/admin" className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-white p-0" aria-label="Admin dashboard">
+            <Link to="/admin/dashboard" className="btn-ghost h-11 w-11 rounded-full border border-amber-100 bg-white p-0" aria-label="Admin dashboard">
               <LayoutDashboard className="h-4 w-4" />
             </Link>
 
