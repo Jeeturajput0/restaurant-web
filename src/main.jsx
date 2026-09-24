@@ -5,14 +5,19 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import ScrollToTop from './components/layout/ScrollToTop.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
+import { StoreProvider } from './context/StoreContext.jsx'
+import Toasts from './components/common/Toasts.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
    <ThemeProvider>
-    <BrowserRouter>
-    <ScrollToTop />
-    <App />
-    </BrowserRouter>
+    <StoreProvider>
+     <BrowserRouter>
+      <ScrollToTop />
+      <App />
+      <Toasts />
+     </BrowserRouter>
+    </StoreProvider>
    </ThemeProvider>
   </StrictMode>,
 )
