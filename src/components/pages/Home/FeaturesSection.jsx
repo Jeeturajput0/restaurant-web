@@ -27,8 +27,8 @@ const steps = [
 
 const FeaturesSection = () => {
   return (
-    <section className="page-section">
-      <div className="theme-container space-y-10">
+    <section className="py-8 sm:py-10">
+      <div className="theme-container space-y-6">
         <SectionHeading
           eyebrow="How It Works"
           title="Simple steps from craving to checkout"
@@ -40,8 +40,8 @@ const FeaturesSection = () => {
             const Icon = step.icon;
 
             return (
-              <article key={step.title} className="theme-card p-6">
-                <div className="mb-5 flex items-center justify-between">
+              <article key={step.title} className="theme-card p-5">
+                <div className="mb-4 flex items-center justify-between">
                   <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-500">
                     <Icon className="h-6 w-6" />
                   </span>

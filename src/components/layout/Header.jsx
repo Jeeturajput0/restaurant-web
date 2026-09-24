@@ -10,7 +10,6 @@ const navItems = [
   { label: "Home", path: "/" },
   { label: "Menu", path: "/menu" },
   { label: "Orders", path: "/orders" },
-  { label: "Bookings", path: "/reservations" },
   { label: "Wishlist", path: "/wishlist" },
   { label: "Offers", path: "/offers" },
   { label: "Contact", path: "/contact" },

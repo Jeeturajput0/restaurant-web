@@ -5,12 +5,12 @@ import Button from "../../ui/Button";
 
 const QuickOrder = () => {
   return (
-    <section className="page-section">
+    <section className="py-8 sm:py-10">
       <div className="theme-container">
-        <div className="grid gap-8 rounded-[2rem] bg-white  shadow-lg sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-10">
-          <div className="space-y-6">
+        <div className="grid gap-6 rounded-[2rem] bg-white  shadow-lg sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-10">
+          <div className="space-y-4">
             <span className="theme-pill">Reservation</span>
-            <h2 className="max-w-xl text-4xl font-semibold leading-tight text-slate-950 sm:text-5xl">
+            <h2 className="max-w-xl text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
               Do you have any dinner plan today? Reserve your table
             </h2>
             <p className="max-w-xl text-sm leading-7 text-slate-600 sm:text-base">

@@ -15,9 +15,9 @@ const details = [
 
 const BenefitsSection = () => {
   return (
-    <section className="page-section">
+    <section className="py-8 sm:py-10">
       <div className="theme-container">
-        <div className="section-grid gap-12">
+        <div className="section-grid gap-8">
           <div className="relative mx-auto w-full max-w-lg">
             <div className="absolute left-8 top-10 h-48 w-48 rounded-full bg-amber-100 blur-3xl" />
             <img
@@ -27,7 +27,7 @@ const BenefitsSection = () => {
             />
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-5">
             <SectionHeading
               eyebrow="Why Choose Us"
               title="We are more than multiple service"

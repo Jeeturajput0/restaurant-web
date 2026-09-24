@@ -8,8 +8,8 @@ const HotDeals = () => {
   const { addToCart } = useCart();
 
   return (
-    <section className="page-section">
-      <div className="theme-container space-y-10">
+    <section className="py-8 sm:py-10">
+      <div className="theme-container space-y-6">
         <SectionHeading
           align="center"
           eyebrow="Popular Dishes"
@@ -34,7 +34,7 @@ const HotDeals = () => {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {menuItems.slice(0, 8).map((item) => (
+          {menuItems.slice(0, 4).map((item) => (
             <ProductCard key={item.id} item={item} onAddToCart={addToCart} />
           ))}
         </div>

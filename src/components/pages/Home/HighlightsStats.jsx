@@ -7,11 +7,11 @@ import Button from "../../ui/Button";
 const HighlightsStats = () => {
   return (
     <>
-      <section className="page-section">
+      <section className="py-8 sm:py-10">
         <div className="theme-container">
-          <div className="grid gap-6 md:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
             {highlights.map((item) => (
-              <article key={item.label} className="theme-card p-6 text-center">
+              <article key={item.label} className="theme-card p-5 text-center">
                 <p className="text-3xl font-semibold text-slate-950">{item.value}</p>
                 <p className="mt-2 text-sm uppercase tracking-[0.2em] text-slate-500">{item.label}</p>
               </article>
@@ -20,8 +20,8 @@ const HighlightsStats = () => {
         </div>
       </section>
 
-      <section className="page-section">
-        <div className="theme-container space-y-10">
+      <section className="py-8 sm:py-10">
+        <div className="theme-container space-y-6">
           <SectionHeading
             title="What our customer says?"
             description="Soft testimonial cards preserve the premium restaurant feel while making the content easier to scan."
@@ -46,14 +46,14 @@ const HighlightsStats = () => {
         </div>
       </section>
 
-      <section className="page-section">
-        <div className="theme-container space-y-10">
+      <section className="py-8 sm:py-10">
+        <div className="theme-container space-y-6">
           <SectionHeading title="Meet our chefs" />
 
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {chefs.map((chef) => (
               <article key={chef.name} className="theme-card p-4">
-                <img src={chef.image} alt={chef.name} className="h-72 w-full rounded-2xl object-cover" />
+                <img src={chef.image} alt={chef.name} className="h-52 w-full rounded-2xl object-cover" />
                 <div className="px-1 pb-2 pt-5">
                   <h3 className="text-xl font-semibold text-slate-950">{chef.name}</h3>
                   <p className="mt-1 text-sm text-slate-500">{chef.specialty}</p>
@@ -64,10 +64,10 @@ const HighlightsStats = () => {
         </div>
       </section>
 
-      <section className="page-section ">
+      <section className="py-8 sm:py-10 ">
         <div className="theme-container">
-          <div className="grid gap-10 rounded-[2rem] bg-[#fff4df] p-6 shadow-lg sm:p-8 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:p-10">
-            <div className="space-y-6">
+          <div className="grid gap-8 rounded-[2rem] bg-[#fff4df] p-6 shadow-lg sm:p-8 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:p-10">
+            <div className="space-y-5">
               <SectionHeading
                 title={appPromo.title}
                 description={appPromo.description}
