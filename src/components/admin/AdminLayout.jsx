@@ -7,6 +7,7 @@ import {
   Settings, UserRound, LogOut, Menu, X, ChevronLeft, Store,
 } from "lucide-react";
 import { useStore } from "../../context/StoreContext";
+import AdminLogin from "./AdminLogin";
 
 export const adminNav = [
   { label: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
@@ -28,9 +29,11 @@ export const adminNav = [
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { notifications } = useStore();
+  const { notifications, admin, adminLogout } = useStore();
   const unread = notifications.filter((n) => !n.read).length;
   const navigate = useNavigate();
+
+  if (!admin) return <AdminLogin />;
 
   const sidebar = (isMobile = false) => (
     <div className={`flex h-full flex-col bg-slate-950 text-slate-300 ${collapsed && !isMobile ? "w-[76px]" : "w-[264px]"} transition-all duration-300`}>
@@ -56,7 +59,7 @@ const AdminLayout = () => {
             )}
           </NavLink>
         ))}
-        <button onClick={() => { localStorage.removeItem("bites_admin_token"); navigate("/"); }}
+        <button onClick={() => { adminLogout(); navigate("/"); }}
           className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition hover:bg-red-500/15 hover:text-red-400">
           <LogOut className="h-[18px] w-[18px] shrink-0" />
           {(!collapsed || isMobile) && <span>Logout</span>}

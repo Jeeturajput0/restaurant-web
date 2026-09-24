@@ -5,8 +5,8 @@ import { useStore } from "../../context/StoreContext";
 import { PageHeader } from "../common/ui";
 
 const AdminProfile = () => {
-  const { toast, stats, orders } = useStore();
-  const [form, setForm] = useState({ name: "Admin Sharma", email: "admin@bitesrestaurant.in", phone: "+91 98765 00000", role: "Owner / Manager" });
+  const { toast, stats, admin, adminLogout } = useStore();
+  const [form, setForm] = useState({ name: admin?.name || "Admin Sharma", email: admin?.email || "admin123@email.com", phone: "+91 98765 00000", role: admin?.role || "Owner / Manager" });
   const [pw, setPw] = useState({ current: "", next: "", confirm: "" });
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const AdminProfile = () => {
             {[["Orders", stats.totalOrders], ["Revenue", "₹12.5L"], ["Rating", "4.8★"]].map(([k, v]) => (
               <div key={k} className="rounded-xl bg-amber-50 p-3"><p className="font-bold">{v}</p><p className="text-xs text-slate-400">{k}</p></div>))}
           </div>
-          <button onClick={() => { localStorage.removeItem("bites_admin_token"); navigate("/"); }} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 py-2.5 text-sm font-semibold text-red-600"><LogOut className="h-4 w-4" /> Logout</button>
+          <button onClick={() => { adminLogout(); navigate("/"); }} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 py-2.5 text-sm font-semibold text-red-600"><LogOut className="h-4 w-4" /> Logout</button>
         </article>
         <div className="space-y-6">
           <form onSubmit={(e) => { e.preventDefault(); toast("Profile updated"); }} className="rounded-2xl border border-amber-100/70 bg-white p-6 shadow-md">

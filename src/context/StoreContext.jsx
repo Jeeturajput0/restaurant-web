@@ -30,13 +30,14 @@ export const StoreProvider = ({ children }) => {
   const [settings, setSettings] = useState(() => load("settings", seedSettings));
   const [wishlist, setWishlist] = useState(() => load("wishlist", []));
   const [myReservations, setMyReservations] = useState(() => load("myReservations", []));
+  const [admin, setAdmin] = useState(() => load("admin", null));
   const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ foods, categories, orders, payments, tables, reservations, coupons, reviews, notifications, settings, wishlist, myReservations }));
+      localStorage.setItem(LS_KEY, JSON.stringify({ foods, categories, orders, payments, tables, reservations, coupons, reviews, notifications, settings, wishlist, myReservations, admin }));
     } catch { /* ignore */ }
-  }, [foods, categories, orders, payments, tables, reservations, coupons, reviews, notifications, settings, wishlist, myReservations]);
+  }, [foods, categories, orders, payments, tables, reservations, coupons, reviews, notifications, settings, wishlist, myReservations, admin]);
 
   const toast = (message, type = "success") => {
     const id = Date.now() + Math.random();
@@ -47,6 +48,21 @@ export const StoreProvider = ({ children }) => {
 
   const pushNotification = (n) =>
     setNotifications((p) => [{ id: Date.now(), time: "Just now", read: false, ...n }, ...p]);
+
+  // ---- admin auth ----
+  const ADMIN_EMAILS = ["admin123@email.com", "admin123@emial.com"];
+  const ADMIN_PASSWORD = "Admin@123";
+
+  const adminLogin = (email, password) => {
+    const cleanEmail = String(email || "").trim().toLowerCase();
+    if (!ADMIN_EMAILS.includes(cleanEmail)) return { ok: false, error: "Ye admin email register nahi hai." };
+    if (String(password || "") !== ADMIN_PASSWORD) return { ok: false, error: "Galat password. Dobara try karo." };
+    const user = { name: "Admin Sharma", email: "admin123@email.com", role: "Owner / Manager" };
+    setAdmin(user);
+    toast("Welcome back, Admin!");
+    return { ok: true };
+  };
+  const adminLogout = () => { setAdmin(null); toast("Logged out successfully", "info"); };
 
   // ---- foods ----
   const saveFood = (food) => {
@@ -114,11 +130,11 @@ export const StoreProvider = ({ children }) => {
 
   const value = {
     foods, categories, orders, customers, payments, tables, reservations, coupons, reviews, notifications,
-    settings, wishlist, myReservations, stats, toasts,
+    settings, wishlist, myReservations, stats, toasts, admin,
     setCategories, setReviews, setNotifications, setSettings, setMyReservations,
     saveFood, deleteFood, toggleFood, updateOrderStatus, cancelOrder, placeOrder,
     saveTable, deleteTable, saveReservation, saveCoupon, deleteCoupon,
-    toggleWishlist, toast, dismissToast, pushNotification,
+    toggleWishlist, toast, dismissToast, pushNotification, adminLogin, adminLogout,
   };
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };
