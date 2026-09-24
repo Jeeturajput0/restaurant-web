@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Facebook, Instagram, Youtube } from "lucide-react";
+import { ArrowRight, Facebook, Instagram, Youtube, LayoutDashboard } from "lucide-react";
 import { brandAssets } from "../../data/menuData";
 import Field from "../ui/Field";
 import { footerPageLinks } from "../pages/FooterPages/footerPagesData";
@@ -87,7 +87,7 @@ const Footer = () => {
 
           <div className="flex flex-col gap-3 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 EatMore. Fresh, fast & delicious — order your favourite food online.</p>
-            <div className="flex gap-5">
+            <div className="flex flex-wrap items-center gap-5">
               <Link to={getFooterPath("Privacy")} className="transition hover:text-amber-600">
                 Privacy
               </Link>
@@ -96,6 +96,13 @@ const Footer = () => {
               </Link>
               <Link to={getFooterPath("Support")} className="transition hover:text-amber-600">
                 Support
+              </Link>
+              <Link
+                to="/admin/dashboard"
+                className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-500"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Admin Dashboard
               </Link>
             </div>
           </div>
