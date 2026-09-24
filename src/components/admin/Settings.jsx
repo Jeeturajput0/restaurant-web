@@ -7,16 +7,16 @@ const Settings = () => {
   const { settings, setSettings, toast } = useStore();
   const [form, setForm] = useState(settings);
   const set = (k, v) => setForm((p) => ({ ...p, [k]: v }));
-  const save = (e) => { e.preventDefault(); setSettings(form); toast("Restaurant settings saved"); };
+  const save = (e) => { e.preventDefault(); setSettings(form); toast("EatMore settings saved"); };
 
   return (
     <div className="space-y-5">
-      <PageHeader eyebrow="Setup" title="Restaurant Settings" description="Control branding, hours, taxes and payment options." />
+      <PageHeader eyebrow="Setup" title="EatMore Settings" description="Control branding, hours, taxes and payment options." />
       <form onSubmit={save} className="grid gap-6 xl:grid-cols-2">
         <section className="rounded-2xl border border-amber-100/70 bg-white p-5 shadow-md sm:p-6">
-          <h2 className="flex items-center gap-2 font-bold"><Store className="h-5 w-5 text-amber-500" /> Restaurant Information</h2>
+          <h2 className="flex items-center gap-2 font-bold"><Store className="h-5 w-5 text-amber-500" /> EatMore Information</h2>
           <div className="mt-4 grid gap-4">
-            <label className="text-sm font-medium">Restaurant name<input value={form.name} onChange={(e) => set("name", e.target.value)} className="theme-input mt-1.5" /></label>
+            <label className="text-sm font-medium">Restaurant name<input value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="EatMore Restaurant" className="theme-input mt-1.5" /></label>
             <label className="text-sm font-medium">Description<textarea value={form.description} onChange={(e) => set("description", e.target.value)} rows="3" className="theme-input mt-1.5" /></label>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="text-sm font-medium">Phone<input value={form.phone} onChange={(e) => set("phone", e.target.value)} className="theme-input mt-1.5" /></label>

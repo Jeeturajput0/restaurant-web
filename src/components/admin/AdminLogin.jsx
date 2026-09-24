@@ -40,7 +40,7 @@ const AdminLogin = () => {
               <Store className="h-7 w-7" />
             </span>
             <p className="theme-pill mt-4">Admin access</p>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Restaurant Dashboard Login</h1>
+            <h1 className="mt-2 text-2xl font-bold text-slate-900">EatMore Dashboard Login</h1>
             <p className="mt-1.5 text-sm text-slate-500">Sign in to manage orders, menu, revenue & more.</p>
           </div>
 

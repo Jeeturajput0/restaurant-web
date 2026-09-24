@@ -205,7 +205,7 @@ export const footerPageContent = {
     eyebrow: "About",
     title: "Our Story",
     description:
-      "Bites is designed around premium presentation, warm hospitality and a frontend experience that feels clean from header to footer.",
+      "EatMore is designed around premium presentation, warm hospitality and a frontend experience that feels clean from header to footer.",
     sections: [
       {
         title: "How we started",
@@ -243,7 +243,7 @@ export const footerPageContent = {
   },
   "/career": {
     eyebrow: "About",
-    title: "Careers at Bites",
+    title: "Careers at EatMore",
     description:
       "We are building a warm, premium food platform and always value people who care about quality, hospitality and clarity.",
     sections: [

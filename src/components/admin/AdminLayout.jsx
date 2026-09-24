@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, ShoppingBag, UtensilsCrossed, Tags, Users, Armchair,
   CalendarCheck, CreditCard, TrendingUp, TicketPercent, Star, Bell,
-  Settings, UserRound, LogOut, Menu, X, ChevronLeft, Store,
+  Settings, UserRound, LogOut, Menu, X, ChevronLeft,
 } from "lucide-react";
 import { useStore } from "../../context/StoreContext";
+import { brandAssets } from "../../data/menuData";
 import AdminLogin from "./AdminLogin";
 
 export const adminNav = [
@@ -39,8 +40,8 @@ const AdminLayout = () => {
     <div className={`flex h-full flex-col bg-slate-950 text-slate-300 ${collapsed && !isMobile ? "w-[76px]" : "w-[264px]"} transition-all duration-300`}>
       <div className="flex items-center justify-between gap-2 px-4 py-5">
         <Link to="/" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500 text-white"><Store className="h-5 w-5" /></span>
-          {(!collapsed || isMobile) && <span className="text-lg font-bold text-white">Bites<span className="text-amber-400">Admin</span></span>}
+          <img src={brandAssets.logo} alt="EatMore" className="h-10 w-10 rounded-xl object-cover" />
+          {(!collapsed || isMobile) && <span className="text-lg font-bold text-white">EatMore<span className="text-amber-400">Admin</span></span>}
         </Link>
         {!isMobile && (
           <button onClick={() => setCollapsed((c) => !c)} className="rounded-lg bg-white/10 p-1.5 text-slate-300 hover:bg-white/20" aria-label="Toggle sidebar">
@@ -68,7 +69,7 @@ const AdminLayout = () => {
       {(!collapsed || isMobile) && (
         <div className="m-3 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-4 text-white">
           <p className="text-sm font-bold">Need help?</p>
-          <p className="mt-1 text-xs text-white/80">Check the restaurant setup guide in Settings.</p>
+          <p className="mt-1 text-xs text-white/80">Check the EatMore setup guide in Settings.</p>
         </div>
       )}
     </div>
@@ -89,7 +90,7 @@ const AdminLayout = () => {
         <header className="sticky top-0 z-40 flex items-center gap-3 border-b border-amber-100/70 bg-white/85 px-4 py-3 backdrop-blur sm:px-6">
           <button onClick={() => setMobileOpen(true)} className="rounded-xl border border-amber-200 bg-white p-2.5 lg:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></button>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-slate-900">Restaurant Management</p>
+            <p className="truncate text-sm font-semibold text-slate-900">EatMore Management</p>
             <p className="hidden text-xs text-slate-400 sm:block">Monitor orders, revenue & operations in real time</p>
           </div>
           <div className="ml-auto flex items-center gap-2">

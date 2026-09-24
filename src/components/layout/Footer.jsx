@@ -34,8 +34,8 @@ const Footer = () => {
           <div className="flex flex-col gap-10 border-b border-amber-100 pb-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-md space-y-4">
               <div className="flex items-center gap-3">
-                <img src={brandAssets.logo} alt="Bites" className="h-10 w-10 rounded-full object-cover" />
-                <span className="text-xl font-semibold text-slate-950">Bites</span>
+                <img src={brandAssets.logo} alt="EatMore" className="h-10 w-10 rounded-full object-cover" />
+                <span className="text-xl font-semibold text-slate-950">EatMore</span>
               </div>
               <h3 className="text-3xl font-semibold text-slate-950">Subscribe Our Newsletter</h3>
               <p className="text-sm leading-7 text-slate-600">
@@ -86,7 +86,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-3 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 Bites. Crafted with a consistent restaurant-inspired design system.</p>
+            <p>© 2026 EatMore. Fresh, fast & delicious — order your favourite food online.</p>
             <div className="flex gap-5">
               <Link to={getFooterPath("Privacy")} className="transition hover:text-amber-600">
                 Privacy

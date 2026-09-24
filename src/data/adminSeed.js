@@ -154,9 +154,9 @@ export const seedNotifications = [
 ];
 
 export const seedSettings = {
-  name: "Bites Restaurant",
+  name: "EatMore Restaurant",
   phone: "+91 98765 00000",
-  email: "hello@bitesrestaurant.in",
+  email: "hello@eatmore.in",
   address: "21 Palm Avenue, Connaught Place, New Delhi 110001",
   description: "Modern Indian & continental kitchen serving fresh, premium dishes with fast delivery.",
   openTime: "10:00",

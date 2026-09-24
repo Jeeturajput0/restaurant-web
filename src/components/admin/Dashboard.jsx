@@ -71,7 +71,7 @@ const Dashboard = () => {
             </div>
           </article>
           <article className="rounded-2xl bg-slate-950 p-5 text-white shadow-md">
-            <div className="flex items-center gap-2"><Star className="h-5 w-5 fill-amber-400 text-amber-400" /><h2 className="font-bold">Restaurant Rating</h2></div>
+            <div className="flex items-center gap-2"><Star className="h-5 w-5 fill-amber-400 text-amber-400" /><h2 className="font-bold">EatMore Rating</h2></div>
             <p className="mt-2 text-4xl font-bold">{avgRating}<span className="text-base text-white/60">/5</span></p>
             <p className="mt-1 text-sm text-white/70">{reviews.length} verified reviews · 92% recommend us</p>
             <Link to="/admin/reviews" className="mt-4 inline-block rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold">Manage reviews</Link>

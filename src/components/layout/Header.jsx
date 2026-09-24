@@ -30,10 +30,10 @@ const Header = () => {
       <div className="theme-container">
         <div className="flex items-center justify-between gap-4 rounded-[1.75rem] border border-white/70 bg-white/85 px-4 py-3 shadow-lg backdrop-blur sm:px-6">
           <Link to="/" className="flex items-center gap-3">
-            <img src={brandAssets.logo} alt="Bites" className="h-11 w-11 rounded-full object-cover" />
+            <img src={brandAssets.logo} alt="EatMore" className="h-11 w-11 rounded-full object-cover" />
             <div>
-              <p className="text-lg font-semibold text-slate-950">Bites</p>
-              <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Restaurant UI</p>
+              <p className="text-lg font-semibold text-slate-950">EatMore</p>
+              <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Delicious Food</p>
             </div>
           </Link>
 

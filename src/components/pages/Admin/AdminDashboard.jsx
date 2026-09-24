@@ -8,7 +8,7 @@ import Field from "../../ui/Field";
 const emptyProduct = { name: "", description: "", category: "", price: "", image: "", rating: "4.5", deliveryTime: "25-30 min", badge: "" };
 
 const AdminDashboard = () => {
-  const [token, setToken] = useState(() => localStorage.getItem("bites_admin_token") || "");
+  const [token, setToken] = useState(() => localStorage.getItem("eatmore_admin_token") || "");
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(emptyProduct);
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
     event.preventDefault(); setLoading(true); setError("");
     try {
       const response = await loginAdmin(credentials);
-      localStorage.setItem("bites_admin_token", response.token);
+      localStorage.setItem("eatmore_admin_token", response.token);
       setToken(response.token);
     } catch (requestError) { setError(requestError.message); }
     finally { setLoading(false); }
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
     catch (requestError) { setError(requestError.message); }
   };
 
-  const logout = () => { localStorage.removeItem("bites_admin_token"); setToken(""); setProducts([]); };
+  const logout = () => { localStorage.removeItem("eatmore_admin_token"); setToken(""); setProducts([]); };
 
   if (!token) return (
     <section className="page-section"><div className="theme-container max-w-lg"><form onSubmit={handleLogin} className="theme-card space-y-5 p-6 sm:p-8">

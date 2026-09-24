@@ -5,7 +5,7 @@ import {
 } from "../data/adminSeed";
 
 const StoreContext = createContext(null);
-const LS_KEY = "bites_store_v1";
+const LS_KEY = "eatmore_store_v1";
 
 const load = (key, fallback) => {
   try {
